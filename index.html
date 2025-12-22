@@ -9,6 +9,8 @@
 
 <link rel="icon" type="image/png" href="https://image2url.com/files/1766362021743-bf399cb9-d9d8-41cc-8ffb-38cff15cd5da.png" sizes="32x32">
 
+
+
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -163,9 +165,10 @@ h2 {
 /* PRODUCTS */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 40px;
 }
+
 
 .card {
     position: relative; /* needed for badge */
@@ -439,6 +442,3 @@ document.addEventListener('click', (e) => {
 
 </body>
 </html>
-
-
-
