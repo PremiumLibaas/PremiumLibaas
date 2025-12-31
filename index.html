@@ -93,7 +93,25 @@ h2 { font-family: 'Playfair Display', serif; font-size: 2.7em; text-align: cente
 .instagram { background: #c13584; color: #fff; }
 .tiktok { background: #010101; color: #fff; }
 .facebook { background: #1877f2; color: #fff; }
-.close { position: absolute; top: 30px; right: 45px; font-size: 32px; cursor: pointer; }
+.close {
+    position: absolute;      /* relative to modal-content */
+    top: 10px;               /* distance from top of card */
+    right: 10px;             /* distance from right of card */
+    width: 40px;
+    height: 40px;
+    background: #fff;        /* white circle */
+    color: #000;             /* black X */
+    border-radius: 50%;      /* makes it circular */
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
 
 /* FOOTER */
 footer { background: #0d0e16; text-align: center; padding: 40px; opacity: 0.8; }
@@ -149,7 +167,6 @@ footer { background: #0d0e16; text-align: center; padding: 40px; opacity: 0.8; }
             </div>
             <div class="extra-images" style="display:none;">
                 <span>thobe1-2.jpeg</span>
-                <span>thobe1-3.jpeg</span>
             </div>
         </div>
 
@@ -169,8 +186,8 @@ footer { background: #0d0e16; text-align: center; padding: 40px; opacity: 0.8; }
 </section>
 
 <div class="modal" id="modal">
-    <div class="close" onclick="closeModal()">×</div>
     <div class="modal-content">
+        <div class="close" onclick="closeModal()">×</div> <!-- only one X here -->
         <div class="modal-img-container">
             <div class="arrow arrow-left" id="prevArrow">&#10094;</div>
             <img id="modalImg">
