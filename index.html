@@ -36,16 +36,14 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 18px 50px;
-    border-bottom: 1px solid rgba(202,168,92,0.15);
 }
 
-.logo img { height: 90px; transform: scale(1.5); }
+.logo img { height: 80px; }
 
 nav a {
     margin-left: 30px;
+    color: #fff;
     text-decoration: none;
-    color: #eaeaea;
-    font-weight: 500;
     cursor: pointer;
 }
 
@@ -54,20 +52,27 @@ nav a:hover { color: #caa85c; }
 /* HERO */
 .hero {
     min-height: 90vh;
-    background: linear-gradient(rgba(18,19,26,0.6), rgba(18,19,26,0.85)), url('hero.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.85)), url('hero.jpg') center/cover no-repeat;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
 .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3.8em;
-    margin-bottom: 20px;
 }
 
-.hero p { opacity: 0.9; }
+.hero button {
+    margin-top: 30px;
+    padding: 14px 38px;
+    border-radius: 40px;
+    background: #caa85c;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
 
 /* SECTION */
 section {
@@ -79,13 +84,13 @@ section {
 h2 {
     font-family: 'Playfair Display', serif;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 /* FILTERS */
 .filters {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .filters button {
@@ -94,7 +99,7 @@ h2 {
     color: #caa85c;
     padding: 12px 28px;
     border-radius: 30px;
-    margin: 6px;
+    margin: 5px;
     cursor: pointer;
 }
 
@@ -107,7 +112,7 @@ h2 {
 /* PRODUCTS */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 40px;
 }
 
@@ -116,31 +121,28 @@ h2 {
     border-radius: 22px;
     overflow: hidden;
     cursor: pointer;
+    transition: transform .3s;
 }
+
+.card:hover { transform: scale(1.05); }
 
 .card img {
     width: 100%;
-    height: 380px;
+    height: 360px;
     object-fit: contain;
 }
 
 .card .info {
-    padding: 25px;
+    padding: 20px;
     text-align: center;
 }
-
-.card h3 {
-    font-family: 'Playfair Display', serif;
-}
-
-.price { color: #d4b86a; }
 
 /* MODAL */
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,.85);
     justify-content: center;
     align-items: center;
     z-index: 3000;
@@ -150,31 +152,43 @@ h2 {
     background: #1b1d2b;
     max-width: 900px;
     width: 90%;
-    border-radius: 24px;
+    border-radius: 20px;
     display: flex;
-    overflow: hidden;
+    flex-wrap: wrap;
     position: relative;
 }
 
-.modal img {
+.modal-content img {
     width: 100%;
+    max-height: 70vh;
     object-fit: contain;
 }
 
 .modal-details {
-    padding: 40px;
+    padding: 30px;
+    text-align: center;
+}
+
+.modal-details a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #caa85c;
+    color: black;
+    text-decoration: none;
+    border-radius: 30px;
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
+    top: 15px;
+    right: 15px;
     background: white;
     color: black;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    font-size: 28px;
+    font-size: 24px;
     cursor: pointer;
 }
 
@@ -183,7 +197,6 @@ footer {
     background: #0d0e16;
     text-align: center;
     padding: 40px;
-    opacity: 0.8;
 }
 </style>
 </head>
@@ -192,10 +205,11 @@ footer {
 
 <header>
     <div class="logo">
-        <img src="logo.png" alt="Premium Libaas">
+        <img src="logo.png">
     </div>
     <nav>
         <a href="#catalogue">Shop</a>
+        <a href="#contact">Contact</a>
     </nav>
 </header>
 
@@ -203,6 +217,7 @@ footer {
     <div>
         <h1>Luxury Islamic Wear</h1>
         <p>Crafted Elegance • Timeless Modesty</p>
+        <button onclick="document.getElementById('catalogue').scrollIntoView()">View All Products</button>
     </div>
 </section>
 
@@ -215,26 +230,27 @@ footer {
         <button onclick="filterItems('abayah')">Abayahs</button>
     </div>
 
-    <!-- PRODUCTS AUTO-RENDER HERE -->
     <div class="grid" id="productGrid"></div>
 </section>
 
-<!-- MODAL -->
+<section id="contact">
+    <h2>Contact Us</h2>
+    <p style="text-align:center;">DM us on Instagram or WhatsApp to order.</p>
+</section>
+
 <div class="modal" id="modal">
     <div class="modal-content">
         <div class="close" onclick="closeModal()">×</div>
         <img id="modalImg">
         <div class="modal-details">
             <h3 id="modalTitle"></h3>
-            <p>Available via our socials.</p>
+            <a href="https://instagram.com" target="_blank">Order via Instagram</a>
         </div>
     </div>
 </div>
 
 <footer>© 2025 Premium Libaas</footer>
 
-<!-- MAIN JS -->
 <script src="products.js"></script>
-
 </body>
 </html>
