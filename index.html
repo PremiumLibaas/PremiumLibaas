@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="index, follow">
-<meta name="description" content="Premium Libaas – Luxury Islamic Wear. Crafted Elegance • Timeless Modesty. Shop premium thobes and abayahs.">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE / SEO (LEFT AS IS) -->
+<meta name="robots" content="index, follow">
+<meta name="description" content="Premium Libaas – Luxury Islamic Wear. Crafted Elegance • Timeless Modesty. Shop premium thobes and abayahs.">
+
 <title>Premium Libaas</title>
 
-<!-- FAVICON -->
+<!-- FAVICON (LEFT AS IS) -->
 <link rel="icon" href="https://image2url.com/r2/default/images/1767212882750-6ba84a5b-f3eb-4684-9ad8-e0ac463603e3.ico" sizes="32x32">
 
 <!-- GOOGLE FONTS -->
@@ -36,92 +39,151 @@ header {
     border-bottom: 1px solid rgba(202,168,92,0.15);
 }
 
-.logo img { height: 90px; width: auto; transition: transform 0.3s; transform: scale(1.5); }
-.logo img:hover { transform: scale(1.55); }
+.logo img { height: 90px; transform: scale(1.5); }
 
-nav { position: relative; }
-nav a { margin-left: 30px; text-decoration: none; color: #eaeaea; font-weight: 500; transition: 0.3s; cursor: pointer; }
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #eaeaea;
+    font-weight: 500;
+    cursor: pointer;
+}
+
 nav a:hover { color: #caa85c; }
-.contact-dropdown { display: none; position: absolute; top: 40px; left: 0; background: linear-gradient(180deg, #1b1d2b, #141520); border-radius: 12px; padding: 10px 0; min-width: 180px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); z-index: 2000; }
-.contact-dropdown a { display: block; padding: 10px 20px; color: #eaeaea; text-decoration: none; font-weight: 500; transition: 0.3s; }
-.contact-dropdown a:hover { background: rgba(202,168,92,0.2); color: #caa85c; }
 
 /* HERO */
-.hero { min-height: 90vh; background: linear-gradient(rgba(18,19,26,0.6), rgba(18,19,26,0.85)), url('hero.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px; }
-.hero h1 { font-family: 'Playfair Display', serif; font-size: 3.8em; letter-spacing: 1px; margin-bottom: 20px; }
-.hero p { font-size: 1.15em; opacity: 0.9; }
-.hero button { margin-top: 35px; padding: 15px 45px; border-radius: 40px; border: none; background: linear-gradient(135deg, #d4b86a, #b7964f); color: #111; font-weight: bold; font-size: 1em; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
-.hero button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(202,168,92,0.4); }
-
-/* SECTION */
-section { padding: 90px 60px; max-width: 1500px; margin: auto; }
-h2 { font-family: 'Playfair Display', serif; font-size: 2.7em; text-align: center; margin-bottom: 60px; }
-
-/* FILTERS */
-.filters { text-align: center; margin-bottom: 50px; }
-.filters button { background: transparent; border: 1px solid rgba(202,168,92,0.6); color: #caa85c; padding: 12px 28px; margin: 6px; border-radius: 30px; cursor: pointer; transition: 0.3s; }
-.filters button:hover, .filters button.active { background: linear-gradient(135deg, #d4b86a, #b7964f); color: #111; }
-
-/* PRODUCTS */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-.card { position: relative; background: linear-gradient(180deg, #1b1d2b, #141520); border-radius: 22px; overflow: hidden; cursor: pointer; transition: transform 0.4s, box-shadow 0.4s; }
-.card:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
-.card img { width: 100%; height: 380px; object-fit: contain; }
-.card .info { padding: 25px; text-align: center; }
-.card h3 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
-.card span { color: #caa85c; font-size: 0.9em; }
-.card .old-price { display: block; margin-top: 8px; color: #888; text-decoration: line-through; font-size: 0.95em; }
-.card .price { display: block; margin-top: 4px; color: #d4b86a; font-weight: 600; font-size: 1.1em; }
-.card.on-sale::after { content: "ON SALE"; position: absolute; top: 18px; left: 18px; background: linear-gradient(135deg, #d4b86a, #b7964f); color: #111; font-size: 0.7em; font-weight: 700; letter-spacing: 1px; padding: 8px 14px; border-radius: 30px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); pointer-events: none; }
-
-/* MODAL */
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 3000; }
-.modal-content { background: linear-gradient(180deg, #1b1d2b, #12131a); max-width: 950px; width: 90%; border-radius: 24px; display: flex; overflow: hidden; position: relative; }
-
-.modal-img-container { width: 50%; position: relative; display: flex; justify-content: center; align-items: center; }
-.modal img { width: 100%; object-fit: contain; }
-
-/* ARROWS */
-.arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: #d4b86a; cursor: pointer; user-select: none; padding: 8px; background: rgba(27,29,43,0.5); border-radius: 50%; transition: background 0.3s; display: none; }
-.arrow:hover { background: rgba(27,29,43,0.8); }
-.arrow-left { left: 10px; }
-.arrow-right { right: 10px; }
-
-.modal-details { padding: 45px; width: 50%; }
-.modal-details h3 { font-family: 'Playfair Display', serif; font-size: 2.2em; margin-bottom: 15px; }
-.modal-details p { opacity: 0.85; margin-bottom: 30px; }
-.modal-details a { display: block; margin-bottom: 15px; padding: 14px; border-radius: 10px; text-align: center; font-weight: bold; text-decoration: none; }
-.instagram { background: #c13584; color: #fff; }
-.tiktok { background: #010101; color: #fff; }
-.facebook { background: #1877f2; color: #fff; }
-.close {
-    position: absolute;      /* relative to modal-content */
-    top: 10px;               /* distance from top of card */
-    right: 10px;             /* distance from right of card */
-    width: 40px;
-    height: 40px;
-    background: #fff;        /* white circle */
-    color: #000;             /* black X */
-    border-radius: 50%;      /* makes it circular */
-    font-size: 28px;
-    font-weight: bold;
+.hero {
+    min-height: 90vh;
+    background: linear-gradient(rgba(18,19,26,0.6), rgba(18,19,26,0.85)), url('hero.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    z-index: 5000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    text-align: center;
 }
 
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.8em;
+    margin-bottom: 20px;
+}
+
+.hero p { opacity: 0.9; }
+
+/* SECTION */
+section {
+    padding: 90px 60px;
+    max-width: 1500px;
+    margin: auto;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* FILTERS */
+.filters {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.filters button {
+    background: transparent;
+    border: 1px solid #caa85c;
+    color: #caa85c;
+    padding: 12px 28px;
+    border-radius: 30px;
+    margin: 6px;
+    cursor: pointer;
+}
+
+.filters button.active,
+.filters button:hover {
+    background: #caa85c;
+    color: #111;
+}
+
+/* PRODUCTS */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.card {
+    background: #1b1d2b;
+    border-radius: 22px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 380px;
+    object-fit: contain;
+}
+
+.card .info {
+    padding: 25px;
+    text-align: center;
+}
+
+.card h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+.price { color: #d4b86a; }
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: #1b1d2b;
+    max-width: 900px;
+    width: 90%;
+    border-radius: 24px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.modal-details {
+    padding: 40px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    color: black;
+    border-radius: 50%;
+    font-size: 28px;
+    cursor: pointer;
+}
 
 /* FOOTER */
-footer { background: #0d0e16; text-align: center; padding: 40px; opacity: 0.8; }
-
-/* RESPONSIVE */
-@media(max-width: 850px) {
-    .modal-content { flex-direction: column; }
-    .modal-img-container, .modal-details { width: 100%; }
-    header { padding: 18px 25px; }
+footer {
+    background: #0d0e16;
+    text-align: center;
+    padding: 40px;
+    opacity: 0.8;
 }
 </style>
 </head>
@@ -129,16 +191,11 @@ footer { background: #0d0e16; text-align: center; padding: 40px; opacity: 0.8; }
 <body>
 
 <header>
-    <div class="logo"><img src="logo.png" alt="Premium Libaas Logo"></div>
+    <div class="logo">
+        <img src="logo.png" alt="Premium Libaas">
+    </div>
     <nav>
         <a href="#catalogue">Shop</a>
-        <a class="contact" id="contactBtn">Contact ▼</a>
-        <div class="contact-dropdown" id="contactDropdown">
-            <a href="mailto:premiumlibaas@gmail.com">Email Us</a>
-            <a href="https://instagram.com/premium_libaas" target="_blank">Instagram</a>
-            <a href="https://www.tiktok.com/@premium_libaas" target="_blank">TikTok</a>
-            <a href="https://www.facebook.com/profile.php?id=61585372481020" target="_blank">Facebook</a>
-        </div>
     </nav>
 </header>
 
@@ -146,134 +203,38 @@ footer { background: #0d0e16; text-align: center; padding: 40px; opacity: 0.8; }
     <div>
         <h1>Luxury Islamic Wear</h1>
         <p>Crafted Elegance • Timeless Modesty</p>
-        <button onclick="document.getElementById('catalogue').scrollIntoView()">Browse All Products</button>
     </div>
 </section>
 
 <section id="catalogue">
     <h2>Our Collection</h2>
+
     <div class="filters">
         <button class="active" onclick="filterItems('all')">All</button>
         <button onclick="filterItems('thobe')">Thobes</button>
         <button onclick="filterItems('abayah')">Abayahs</button>
     </div>
-    <div class="grid">
-        <div class="card thobe" onclick="openModal(this)">
-            <img src="thobe1.jpeg">
-            <div class="info">
-                <h3>Classic Thobe</h3>
-                <span>Premium Fabric</span>
-                <span class="old-price">£39.99</span>
-                <span class="price">£25.00</span>
-            </div>
-            <div class="extra-images" style="display:none;">
-                <span>thobe1-2.jpeg</span>
-            </div>
-        </div>
 
-        <div class="card abayah" onclick="openModal(this)">
-            <img src="abayah1.webp">
-            <div class="info">
-                <h3>Elegant Abayah</h3>
-                <span>Flowing Silhouette</span>
-                <span class="old-price"></span>
-                <span class="price">£35.00</span>
-            </div>
-            <div class="extra-images" style="display:none;">
-                <span>abayah1-2.webp</span>
-            </div>
-        </div>
-    </div>
+    <!-- PRODUCTS AUTO-RENDER HERE -->
+    <div class="grid" id="productGrid"></div>
 </section>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
     <div class="modal-content">
-        <div class="close" onclick="closeModal()">×</div> <!-- only one X here -->
-        <div class="modal-img-container">
-            <div class="arrow arrow-left" id="prevArrow">&#10094;</div>
-            <img id="modalImg">
-            <div class="arrow arrow-right" id="nextArrow">&#10095;</div>
-        </div>
+        <div class="close" onclick="closeModal()">×</div>
+        <img id="modalImg">
         <div class="modal-details">
             <h3 id="modalTitle"></h3>
-            <p>Available via our official social platforms.</p>
-            <a href="https://instagram.com/premium_libaas" class="instagram" target="_blank">Buy via Instagram</a>
-            <a href="https://www.tiktok.com/@premium_libaas" class="tiktok" target="_blank">Buy via TikTok</a>
-            <a href="https://www.facebook.com/profile.php?id=61585372481020" class="facebook" target="_blank">Buy via Facebook</a>
+            <p>Available via our socials.</p>
         </div>
     </div>
 </div>
 
-<footer id="contact">© 2025 Premium Libaas · Crafted with Excellence</footer>
+<footer>© 2025 Premium Libaas</footer>
 
-<script>
-let currentImages = [];
-let currentIndex = 0;
-
-function openModal(card) {
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
-    const prevArrow = document.getElementById('prevArrow');
-    const nextArrow = document.getElementById('nextArrow');
-
-    currentImages = [card.querySelector('img').src];
-    card.querySelectorAll('.extra-images span').forEach(span => currentImages.push(span.innerText));
-    currentIndex = 0;
-
-    modal.style.display = 'flex';
-    modalImg.src = currentImages[currentIndex];
-    modalTitle.innerText = card.querySelector('h3').innerText;
-
-    // Show arrows only if more than 1 image
-    if(currentImages.length > 1){
-        prevArrow.style.display = 'block';
-        nextArrow.style.display = 'block';
-    } else {
-        prevArrow.style.display = 'none';
-        nextArrow.style.display = 'none';
-    }
-}
-
-document.getElementById('prevArrow').addEventListener('click', e => {
-    e.stopPropagation();
-    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    document.getElementById('modalImg').src = currentImages[currentIndex];
-});
-document.getElementById('nextArrow').addEventListener('click', e => {
-    e.stopPropagation();
-    currentIndex = (currentIndex + 1) % currentImages.length;
-    document.getElementById('modalImg').src = currentImages[currentIndex];
-});
-
-function closeModal() { document.getElementById('modal').style.display = 'none'; }
-function filterItems(type) {
-    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    document.querySelectorAll('.card').forEach(card => {
-        card.style.display = (type==='all' || card.classList.contains(type)) ? 'block':'none';
-    });
-}
-
-document.querySelectorAll('.card').forEach(card => {
-    const oldPrice = card.querySelector('.old-price')?.innerText.trim();
-    const newPrice = card.querySelector('.price')?.innerText.trim();
-    if(oldPrice && newPrice) card.classList.add('on-sale'); else card.classList.remove('on-sale');
-});
-
-const contactBtn = document.getElementById('contactBtn');
-const contactDropdown = document.getElementById('contactDropdown');
-contactBtn.addEventListener('click', () => {
-    contactDropdown.style.display = contactDropdown.style.display==='block' ? 'none':'block';
-});
-document.addEventListener('click', e => {
-    if(!contactBtn.contains(e.target) && !contactDropdown.contains(e.target)) contactDropdown.style.display = 'none';
-});
-</script>
+<!-- MAIN JS -->
 <script src="products.js"></script>
+
 </body>
 </html>
-
-
-
-
