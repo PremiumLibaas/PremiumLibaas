@@ -2,14 +2,12 @@ const products = [
   {
     name: "Classic Black Thobe",
     category: "thobe",
-    price: "£45",
-    images: ["thobe1.jpeg", "thobe1-2.jpeg"]
+    images: ["thobe1.jpeg"]
   },
   {
     name: "Elegant Abayah",
     category: "abayah",
-    price: "£55",
-    images: ["abayah1.webp", "abayah1-2.webp"]
+    images: ["abayah1.webp"]
   }
 ];
 
@@ -29,10 +27,9 @@ function renderProducts(filter = "all") {
     card.onclick = () => openModal(product);
 
     card.innerHTML = `
-      <img src="${product.images[0]}" alt="${product.name}">
+      <img src="${product.images[0]}">
       <div class="info">
         <h3>${product.name}</h3>
-        <p class="price">${product.price}</p>
       </div>
     `;
 
@@ -41,10 +38,7 @@ function renderProducts(filter = "all") {
 }
 
 function filterItems(type) {
-  document
-    .querySelectorAll(".filters button")
-    .forEach(btn => btn.classList.remove("active"));
-
+  document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
   event.target.classList.add("active");
   renderProducts(type);
 }
