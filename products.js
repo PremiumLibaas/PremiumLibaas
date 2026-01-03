@@ -1,3 +1,6 @@
+/* =======================
+   PRODUCT DATA
+======================= */
 const products = [
   {
     id: "thobe-classic-black",
@@ -31,31 +34,30 @@ const products = [
   }
 ];
 
+/* =======================
+   RENDER PRODUCTS
+======================= */
 const grid = document.getElementById("productGrid");
 
-/* RENDER PRODUCTS */
 function renderProducts(list) {
   grid.innerHTML = "";
 
-  list.forEach(p => {
+  list.forEach(product => {
     const card = document.createElement("div");
-    card.className = `card ${p.category}`;
-    card.dataset.id = p.id;
+    card.className = `card ${product.category}`;
+    card.dataset.id = product.id;
 
     card.innerHTML = `
-      <img src="${p.image}">
+      <img src="${product.image}">
       <div class="info">
-        <h3>${p.title}</h3>
-        <span>${p.subtitle}</span>
-        ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ""}
-        <span class="price">${p.price}</span>
-      </div>
-      <div class="extra-images" style="display:none;">
-        ${p.extraImages.map(img => `<span>${img}</span>`).join("")}
+        <h3>${product.title}</h3>
+        <span>${product.subtitle}</span>
+        ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
+        <span class="price">${product.price}</span>
       </div>
     `;
 
-    card.onclick = () => openModal(p);
+    card.addEventListener("click", () => openModal(product));
     grid.appendChild(card);
   });
 
@@ -64,35 +66,41 @@ function renderProducts(list) {
 
 renderProducts(products);
 
-/* FILTERS */
+/* =======================
+   FILTERS
+======================= */
 function filterItems(type) {
   document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
   event.target.classList.add("active");
 
-  if (type === "all") {
-    renderProducts(products);
-  } else {
-    renderProducts(products.filter(p => p.category === type));
-  }
+  if (type === "all") renderProducts(products);
+  else renderProducts(products.filter(p => p.category === type));
 }
 
-/* SALE BADGE */
+/* =======================
+   SALE BADGE
+======================= */
 function applySaleBadges() {
   document.querySelectorAll(".card").forEach(card => {
-    const oldP = card.querySelector(".old-price");
-    if (oldP) card.classList.add("on-sale");
+    if (card.querySelector(".old-price")) {
+      card.classList.add("on-sale");
+    }
   });
 }
 
-/* MODAL */
+/* =======================
+   MODAL
+======================= */
 let currentImages = [];
 let currentIndex = 0;
 
-function openModal(product) {
-  const modal = document.getElementById("modal");
-  const modalImg = document.getElementById("modalImg");
-  const modalTitle = document.getElementById("modalTitle");
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
+const modalTitle = document.getElementById("modalTitle");
+const prevArrow = document.getElementById("prevArrow");
+const nextArrow = document.getElementById("nextArrow");
 
+function openModal(product) {
   currentImages = [product.image, ...product.extraImages];
   currentIndex = 0;
 
@@ -103,45 +111,42 @@ function openModal(product) {
   document.querySelector(".tiktok").href = product.links.tiktok;
   document.querySelector(".facebook").href = product.links.facebook;
 
-  document.getElementById("prevArrow").style.display =
-    currentImages.length > 1 ? "block" : "none";
-  document.getElementById("nextArrow").style.display =
-    currentImages.length > 1 ? "block" : "none";
+  prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
+  nextArrow.style.display = currentImages.length > 1 ? "block" : "none";
 
   modal.style.display = "flex";
 }
 
 function closeModal() {
-  document.getElementById("modal").style.display = "none";
+  modal.style.display = "none";
 }
 
-document.getElementById("prevArrow").onclick = e => {
+prevArrow.addEventListener("click", e => {
   e.stopPropagation();
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
   modalImg.src = currentImages[currentIndex];
-};
+});
 
-document.getElementById("nextArrow").onclick = e => {
+nextArrow.addEventListener("click", e => {
   e.stopPropagation();
   currentIndex = (currentIndex + 1) % currentImages.length;
   modalImg.src = currentImages[currentIndex];
-};
+});
 
-/* CONTACT DROPDOWN */
+/* =======================
+   CONTACT DROPDOWN (FIXED)
+======================= */
 const contactBtn = document.getElementById("contactBtn");
 const contactDropdown = document.getElementById("contactDropdown");
 
-contactBtn?.addEventListener("click", () => {
+contactBtn.addEventListener("click", e => {
+  e.stopPropagation();
   contactDropdown.style.display =
     contactDropdown.style.display === "block" ? "none" : "block";
 });
 
 document.addEventListener("click", e => {
-  if (
-    contactBtn &&
-    !contactBtn.contains(e.target) &&
-    !contactDropdown.contains(e.target)
-  ) {
+  if (!contactDropdown.contains(e.target)) {
     contactDropdown.style.display = "none";
   }
 });
