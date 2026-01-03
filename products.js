@@ -1,10 +1,10 @@
 /* =========================
-   PRODUCTS DATA
+   PRODUCT DATA
 ========================= */
 
 const products = [
   {
-    id: "thobe-classic-black",
+    id: "thobe-classic",
     category: "thobe",
     title: "Classic Thobe",
     subtitle: "Premium Fabric",
@@ -19,7 +19,7 @@ const products = [
     }
   },
   {
-    id: "abayah-elegant-flow",
+    id: "abayah-elegant",
     category: "abayah",
     title: "Elegant Abayah",
     subtitle: "Flowing Silhouette",
@@ -43,12 +43,8 @@ const grid = document.getElementById("productGrid");
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
 const modalTitle = document.getElementById("modalTitle");
-
 const prevArrow = document.getElementById("prevArrow");
 const nextArrow = document.getElementById("nextArrow");
-
-const contactBtn = document.getElementById("contactBtn");
-const contactDropdown = document.getElementById("contactDropdown");
 
 /* =========================
    RENDER PRODUCTS
@@ -74,11 +70,10 @@ function renderProducts(list) {
       </div>
     `;
 
-    card.addEventListener("click", () => openModal(product));
+    if (product.oldPrice) card.classList.add("on-sale");
+
     grid.appendChild(card);
   });
-
-  applySaleBadges();
 }
 
 renderProducts(products);
@@ -102,16 +97,16 @@ function filterItems(type) {
 }
 
 /* =========================
-   SALE BADGE
+   EVENT DELEGATION (CLICK FIX)
 ========================= */
 
-function applySaleBadges() {
-  document.querySelectorAll(".card").forEach(card => {
-    if (card.querySelector(".old-price")) {
-      card.classList.add("on-sale");
-    }
-  });
-}
+grid.addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if (!card) return;
+
+  const product = products.find(p => p.id === card.dataset.id);
+  if (product) openModal(product);
+});
 
 /* =========================
    MODAL LOGIC
@@ -121,69 +116,57 @@ let currentImages = [];
 let currentIndex = 0;
 
 function openModal(product) {
-  if (!modal || !modalImg) return;
-
-  currentImages = [product.image, ...(product.extraImages || [])];
+  currentImages = [product.image, ...product.extraImages];
   currentIndex = 0;
 
-  modalImg.src = currentImages[0];
+  modalImg.src = currentImages[currentIndex];
+  modalTitle.innerText = product.title;
 
-  if (modalTitle) {
-    modalTitle.innerText = product.title;
-  }
+  document.querySelector(".instagram").href = product.links.instagram;
+  document.querySelector(".tiktok").href = product.links.tiktok;
+  document.querySelector(".facebook").href = product.links.facebook;
 
-  const ig = document.querySelector(".instagram");
-  const tt = document.querySelector(".tiktok");
-  const fb = document.querySelector(".facebook");
-
-  if (ig && product.links?.instagram) ig.href = product.links.instagram;
-  if (tt && product.links?.tiktok) tt.href = product.links.tiktok;
-  if (fb && product.links?.facebook) fb.href = product.links.facebook;
-
-  if (prevArrow) prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
-  if (nextArrow) nextArrow.style.display = currentImages.length > 1 ? "block" : "none";
+  prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
+  nextArrow.style.display = currentImages.length > 1 ? "block" : "none";
 
   modal.style.display = "flex";
 }
 
 function closeModal() {
-  if (modal) modal.style.display = "none";
+  modal.style.display = "none";
 }
 
-/* =========================
-   IMAGE NAVIGATION
-========================= */
+prevArrow.onclick = e => {
+  e.stopPropagation();
+  currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+  modalImg.src = currentImages[currentIndex];
+};
 
-if (prevArrow) {
-  prevArrow.addEventListener("click", e => {
-    e.stopPropagation();
-    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    modalImg.src = currentImages[currentIndex];
-  });
-}
-
-if (nextArrow) {
-  nextArrow.addEventListener("click", e => {
-    e.stopPropagation();
-    currentIndex = (currentIndex + 1) % currentImages.length;
-    modalImg.src = currentImages[currentIndex];
-  });
-}
+nextArrow.onclick = e => {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % currentImages.length;
+  modalImg.src = currentImages[currentIndex];
+};
 
 /* =========================
    CONTACT DROPDOWN
 ========================= */
 
-if (contactBtn && contactDropdown) {
-  contactBtn.addEventListener("click", e => {
-    e.stopPropagation();
-    contactDropdown.style.display =
-      contactDropdown.style.display === "block" ? "none" : "block";
-  });
+const contactBtn = document.getElementById("contactBtn");
+const contactDropdown = document.getElementById("contactDropdown");
 
-  document.addEventListener("click", e => {
-    if (!contactDropdown.contains(e.target)) {
-      contactDropdown.style.display = "none";
-    }
-  });
-}
+contactBtn?.addEventListener("click", e => {
+  e.stopPropagation();
+  contactDropdown.style.display =
+    contactDropdown.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", e => {
+  if (
+    contactBtn &&
+    !contactBtn.contains(e.target) &&
+    !contactDropdown.contains(e.target)
+  ) {
+    contactDropdown.style.display = "none";
+  }
+});
