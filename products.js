@@ -1,41 +1,13 @@
 /* =========================
-   PRODUCT DATA
+   GLOBAL BUY LINKS
 ========================= */
 
-const products = [
-  {
-    id: "THB-0001",                // PERMANENT ID
-    category: "thobe",
-    subcategory: "men",
-    title: "Classic Thobe",
-    subtitle: "Premium Fabric",
-    image: "thobe1.jpeg",
-    extraImages: ["thobe1-2.jpeg"],
-    oldPrice: "£39.99",
-    price: "£25.00",
-    links: {
-      instagram: "https://instagram.com/premium_libaas",
-      tiktok: "https://www.tiktok.com/@premium_libaas",
-      facebook: "https://www.facebook.com/profile.php?id=61585372481020"
-    }
-  },
-  {
-    id: "ABY-0001",
-    category: "abayah",
-    subcategory: "luxury",
-    title: "Elegant Abayah",
-    subtitle: "Flowing Silhouette",
-    image: "abayah1.webp",
-    extraImages: ["abayah1-2.webp"],
-    oldPrice: "",
-    price: "£35.00",
-    links: {
-      instagram: "https://instagram.com/premium_libaas",
-      tiktok: "https://www.tiktok.com/@premium_libaas",
-      facebook: "https://www.facebook.com/profile.php?id=61585372481020"
-    }
-  }
-];
+const BUY_LINKS = {
+  instagram: "https://instagram.com/premium_libaas",
+  tiktok: "https://www.tiktok.com/@premium_libaas",
+  facebook: "https://www.facebook.com/profile.php?id=61585372481020"
+};
+
 
 /* =========================
    FILTER STATE
@@ -236,9 +208,9 @@ function openModal(product) {
   modalImg.src = currentImages[currentIndex];
   modalTitle.innerText = product.title;
 
-  document.querySelector(".instagram").href = product.links.instagram;
-  document.querySelector(".tiktok").href = product.links.tiktok;
-  document.querySelector(".facebook").href = product.links.facebook;
+  document.querySelector(".instagram").href = BUY_LINKS.instagram;
+document.querySelector(".tiktok").href = BUY_LINKS.tiktok;
+document.querySelector(".facebook").href = BUY_LINKS.facebook;
 
   prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
   nextArrow.style.display = currentImages.length > 1 ? "block" : "none";
