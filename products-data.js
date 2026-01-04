@@ -25,7 +25,8 @@ const products = [
     oldPrice: "",
     price: "£35.00",
     
-  },
+  }
 
 ];
+
 
