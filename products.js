@@ -4,8 +4,9 @@
 
 const products = [
   {
-    id: "thobe-classic",
+    id: "THB-0001",                // PERMANENT ID
     category: "thobe",
+    subcategory: "men",
     title: "Classic Thobe",
     subtitle: "Premium Fabric",
     image: "thobe1.jpeg",
@@ -19,8 +20,9 @@ const products = [
     }
   },
   {
-    id: "abayah-elegant",
+    id: "ABY-0001",
     category: "abayah",
+    subcategory: "luxury",
     title: "Elegant Abayah",
     subtitle: "Flowing Silhouette",
     image: "abayah1.webp",
@@ -67,6 +69,9 @@ function renderProducts(list) {
         <span>${product.subtitle}</span>
         ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
         <span class="price">${product.price}</span>
+        <span style="font-size:0.7em;opacity:0.5;margin-top:6px;">
+          ID: ${product.id}
+        </span>
       </div>
     `;
 
@@ -79,7 +84,7 @@ function renderProducts(list) {
 renderProducts(products);
 
 /* =========================
-   FILTERS
+   FILTERS (CATEGORY ONLY FOR NOW)
 ========================= */
 
 function filterItems(type) {
@@ -97,7 +102,7 @@ function filterItems(type) {
 }
 
 /* =========================
-   EVENT DELEGATION (CLICK FIX)
+   CLICK HANDLING
 ========================= */
 
 grid.addEventListener("click", e => {
