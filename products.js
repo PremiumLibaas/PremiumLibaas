@@ -38,6 +38,14 @@ const products = [
 ];
 
 /* =========================
+   FILTER STATE
+========================= */
+
+let activeCategory = "all";
+let activeSubcategory = "all";
+
+
+/* =========================
    DOM ELEMENTS
 ========================= */
 
@@ -114,24 +122,92 @@ function buildFilters(products) {
 buildFilters(products);
 renderProducts(products);
 
+function buildSubFilters(filteredProducts) {
+  const subBar = document.getElementById("subFilterBar");
+  if (!subBar) return;
 
-/* =========================
-   FILTERS (CATEGORY ONLY FOR NOW)
-========================= */
+  const subcategories = [
+    ...new Set(
+      filteredProducts
+        .map(p => p.subcategory)
+        .filter(Boolean)
+    )
+  ];
 
-function filterItems(type, button) {
-  document.querySelectorAll(".filters button").forEach(btn =>
+  if (subcategories.length === 0) {
+    hideSubFilters();
+    return;
+  }
+
+  subBar.style.display = "block";
+  subBar.innerHTML = "";
+
+  const allBtn = document.createElement("button");
+  allBtn.className = "active";
+  allBtn.innerText = "All";
+  allBtn.onclick = () => filterSubItems("all", allBtn);
+  subBar.appendChild(allBtn);
+
+  subcategories.forEach(sub => {
+    const btn = document.createElement("button");
+    btn.innerText = sub.charAt(0).toUpperCase() + sub.slice(1);
+    btn.onclick = () => filterSubItems(sub, btn);
+    subBar.appendChild(btn);
+  });
+}
+
+function filterSubItems(subcategory, button) {
+  activeSubcategory = subcategory;
+
+  document.querySelectorAll("#subFilterBar button").forEach(btn =>
     btn.classList.remove("active")
   );
 
   if (button) button.classList.add("active");
 
-  if (type === "all") {
-    renderProducts(products);
-  } else {
-    renderProducts(products.filter(p => p.category === type));
+  let result = products.filter(p => p.category === activeCategory);
+
+  if (subcategory !== "all") {
+    result = result.filter(p => p.subcategory === subcategory);
   }
+
+  renderProducts(result);
 }
+
+function hideSubFilters() {
+  const subBar = document.getElementById("subFilterBar");
+  if (!subBar) return;
+  subBar.style.display = "none";
+  subBar.innerHTML = "";
+}
+
+
+
+/* =========================
+   FILTERS (CATEGORY ONLY FOR NOW)
+========================= */
+
+function filterItems(category, button) {
+  activeCategory = category;
+  activeSubcategory = "all";
+
+  document.querySelectorAll("#filterBar button").forEach(btn =>
+    btn.classList.remove("active")
+  );
+
+  if (button) button.classList.add("active");
+
+  if (category === "all") {
+    renderProducts(products);
+    hideSubFilters();
+    return;
+  }
+
+  const filtered = products.filter(p => p.category === category);
+  renderProducts(filtered);
+  buildSubFilters(filtered);
+}
+
 
 
 /* =========================
