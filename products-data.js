@@ -26,16 +26,6 @@ const products = [
     price: "£35.00",
     
   },
-  {
-    id: "nce-0001",
-    category: "nice",
-    subcategory: "hot",
-    title: "Elegant Abayah",
-    subtitle: "Flowing Silhouette",
-    image: "abayah1.webp",
-    extraImages: ["abayah1-2.webp"],
-    oldPrice: "",
-    price: "£35.00",
-    
-  },
+
 ];
+
