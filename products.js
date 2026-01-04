@@ -81,18 +81,50 @@ function renderProducts(list) {
   });
 }
 
+/* =========================
+   AUTO-GENERATE FILTERS
+========================= */
+
+const filterBar = document.getElementById("filterBar");
+
+function buildFilters(products) {
+  if (!filterBar) return;
+
+  filterBar.innerHTML = "";
+
+  // Always add "All"
+  const allBtn = document.createElement("button");
+  allBtn.className = "active";
+  allBtn.innerText = "All";
+  allBtn.onclick = () => filterItems("all", allBtn);
+  filterBar.appendChild(allBtn);
+
+  // Get unique categories
+  const categories = [...new Set(products.map(p => p.category))];
+
+  categories.forEach(category => {
+    const btn = document.createElement("button");
+    btn.innerText = category.charAt(0).toUpperCase() + category.slice(1);
+    btn.onclick = () => filterItems(category, btn);
+    filterBar.appendChild(btn);
+  });
+}
+
+
+buildFilters(products);
 renderProducts(products);
+
 
 /* =========================
    FILTERS (CATEGORY ONLY FOR NOW)
 ========================= */
 
-function filterItems(type) {
+function filterItems(type, button) {
   document.querySelectorAll(".filters button").forEach(btn =>
     btn.classList.remove("active")
   );
 
-  event.target.classList.add("active");
+  if (button) button.classList.add("active");
 
   if (type === "all") {
     renderProducts(products);
@@ -100,6 +132,7 @@ function filterItems(type) {
     renderProducts(products.filter(p => p.category === type));
   }
 }
+
 
 /* =========================
    CLICK HANDLING
