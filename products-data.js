@@ -10,7 +10,7 @@ const products = [
     title: "Classic Thobe",
     subtitle: "Premium Fabric",
     image: "thobe1.jpeg",
-    extraImages: ["thobe1-2.webp"],
+    extraImages: ["thobe1-2.WEBP"],
     oldPrice: "£39.99",
     price: "£25.00",
     },
@@ -25,9 +25,7 @@ const products = [
     oldPrice: "",
     price: "£35.00",
     
-  }
+  },
 
 ];
-
-
 
