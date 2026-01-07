@@ -46,11 +46,16 @@ function renderProducts(list) {
       card.classList.add("out-of-stock");
     }
 
+    if (product.oldPrice) {
+      card.classList.add("on-sale");
+    }
+
     card.innerHTML = `
       <img src="${product.image}" alt="${product.title}">
       <div class="info">
         <h3>${product.title}</h3>
         <span>${product.subtitle}</span>
+
         ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
         <span class="price">${product.price}</span>
 
@@ -67,24 +72,7 @@ function renderProducts(list) {
 }
 
 
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.title}">
-      <div class="info">
-        <h3>${product.title}</h3>
-        <span>${product.subtitle}</span>
-        ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
-        <span class="price">${product.price}</span>
-        <span style="font-size:0.7em;opacity:0.5;margin-top:6px;">
-          ID: ${product.id}
-        </span>
-      </div>
-    `;
 
-    if (product.oldPrice) card.classList.add("on-sale");
-
-    grid.appendChild(card);
-  });
-}
 
 /* =========================
    AUTO-GENERATE FILTERS
