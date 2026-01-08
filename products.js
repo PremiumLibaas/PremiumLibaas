@@ -59,11 +59,8 @@ function renderProducts(list) {
         ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
         <span class="price">${product.price}</span>
 
-        ${
-          !product.inStock
-            ? `<span class="stock-badge">Out of Stock</span>`
-            : `<span class="stock-badge in-stock">In Stock</span>`
-        }
+        ${!product.inStock ? `<span class="stock-badge">Out of Stock</span>` : ""}
+
       </div>
     `;
 
