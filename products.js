@@ -204,8 +204,14 @@ grid.addEventListener("click", e => {
   if (!card) return;
 
   const product = products.find(p => p.id === card.dataset.id);
-  if (product) openModal(product);
+  if (!product) return;
+
+  // 🚫 Stop out-of-stock products opening the modal
+  if (!product.inStock) return;
+
+  openModal(product);
 });
+
 
 /* =========================
    MODAL LOGIC
