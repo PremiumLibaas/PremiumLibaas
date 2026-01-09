@@ -50,19 +50,17 @@ function renderProducts(list) {
       card.classList.add("on-sale");
     }
 
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.title}">
-      <div class="info">
-        <h3>${product.title}</h3>
-        <span>${product.subtitle}</span>
+card.innerHTML = `
+  <img src="${product.image}" alt="${product.title}">
+  <div class="info">
+    <h3>${product.title}</h3>
+    <span>${product.subtitle}</span>
+    <span class="price">${product.price}</span>
 
-        ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
-        <span class="price">${product.price}</span>
+    <span class="product-id">ID: ${product.id}</span>
+  </div>
+`;
 
-        ${!product.inStock ? `<span class="stock-badge">Out of Stock</span>` : ""}
-
-      </div>
-    `;
 
     grid.appendChild(card);
   });
