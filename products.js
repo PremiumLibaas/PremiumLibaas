@@ -66,13 +66,6 @@ function renderProducts(list) {
 
 
 
-    grid.appendChild(card);
-  });
-}
-
-
-
-
 /* =========================
    AUTO-GENERATE FILTERS
 ========================= */
@@ -274,3 +267,4 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
