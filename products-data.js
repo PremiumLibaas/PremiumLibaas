@@ -9,7 +9,7 @@ const products = [
     extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
     oldPrice: "£39.99",
     price: "£25.00",
-    inStock: true  
+    inStock: false
   },
   {
     id: "ABY-0001",
@@ -19,10 +19,11 @@ const products = [
     subtitle: "Flowing Silhouette",
     image: "abayah1.webp",
     extraImages: ["abayah1-2.webp"],
-    oldPrice: "",
+    oldPrice: "£50.00",
     price: "£35.00",
-    inStock: false   
+    inStock: false  
   }
 ];
+
 
 
