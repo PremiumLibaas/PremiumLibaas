@@ -55,6 +55,9 @@ card.innerHTML = `
   <div class="info">
     <h3>${product.title}</h3>
     <span>${product.subtitle}</span>
+
+    ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ""}
+
     <span class="price">${product.price}</span>
 
     ${!product.inStock ? `<span class="stock-badge">Out of Stock</span>` : ""}
@@ -268,6 +271,7 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
