@@ -57,11 +57,7 @@ card.innerHTML = `
     <span>${product.subtitle}</span>
     <span class="price">${product.price}</span>
 
-    ${
-      !product.inStock
-        ? `<span class="stock-badge">Out of Stock</span>`
-        : `<span class="stock-badge in-stock">In Stock</span>`
-    }
+    ${!product.inStock ? `<span class="stock-badge">Out of Stock</span>` : ""}
 
     <span class="product-id">ID: ${product.id}</span>
   </div>
@@ -70,8 +66,6 @@ card.innerHTML = `
     grid.appendChild(card);
   });
 }
-
-
 
 /* =========================
    AUTO-GENERATE FILTERS
@@ -274,5 +268,6 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
