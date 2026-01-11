@@ -12,7 +12,7 @@ const products = [
     inStock: true
   },
     {
-    id: "THB-0001",
+    id: "THB-0002",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -24,7 +24,7 @@ const products = [
     inStock: true
   },
     {
-    id: "THB-0001",
+    id: "THB-0003",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -36,7 +36,7 @@ const products = [
     inStock: true
   },
     {
-    id: "THB-0001",
+    id: "THB-0004",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -48,7 +48,7 @@ const products = [
     inStock: true
   },
     {
-    id: "THB-0001",
+    id: "THB-0005",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -60,7 +60,7 @@ const products = [
     inStock: false
   },
     {
-    id: "THB-0001",
+    id: "THB-0006",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -72,7 +72,7 @@ const products = [
     inStock: true
   },
     {
-    id: "THB-0001",
+    id: "THB-0007",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -84,7 +84,7 @@ const products = [
     inStock: false
   },
     {
-    id: "THB-0001",
+    id: "THB-0008",
     category: "thobe",
     subcategory: "men",
     title: "Classic Thobe",
@@ -108,6 +108,7 @@ const products = [
     inStock: false  
   }
 ];
+
 
 
 
