@@ -9,7 +9,43 @@ const products = [
     extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
     oldPrice: "£39.99",
     price: "£25.00",
-    inStock: false
+    inStock: true
+  },
+    {
+    id: "THB-0001",
+    category: "thobe",
+    subcategory: "men",
+    title: "Classic Thobe",
+    subtitle: "Premium Fabric",
+    image: "thobe1.jpeg",
+    extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
+    oldPrice: "£39.99",
+    price: "£25.00",
+    inStock: true
+  },
+    {
+    id: "THB-0001",
+    category: "thobe",
+    subcategory: "men",
+    title: "Classic Thobe",
+    subtitle: "Premium Fabric",
+    image: "thobe1.jpeg",
+    extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
+    oldPrice: "£39.99",
+    price: "£25.00",
+    inStock: true
+  },
+    {
+    id: "THB-0001",
+    category: "thobe",
+    subcategory: "men",
+    title: "Classic Thobe",
+    subtitle: "Premium Fabric",
+    image: "thobe1.jpeg",
+    extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
+    oldPrice: "£39.99",
+    price: "£25.00",
+    inStock: true
   },
     {
     id: "THB-0001",
@@ -33,7 +69,7 @@ const products = [
     extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
     oldPrice: "£39.99",
     price: "£25.00",
-    inStock: false
+    inStock: true
   },
     {
     id: "THB-0001",
@@ -57,43 +93,7 @@ const products = [
     extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
     oldPrice: "£39.99",
     price: "£25.00",
-    inStock: false
-  },
-    {
-    id: "THB-0001",
-    category: "thobe",
-    subcategory: "men",
-    title: "Classic Thobe",
-    subtitle: "Premium Fabric",
-    image: "thobe1.jpeg",
-    extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
-    oldPrice: "£39.99",
-    price: "£25.00",
-    inStock: false
-  },
-    {
-    id: "THB-0001",
-    category: "thobe",
-    subcategory: "men",
-    title: "Classic Thobe",
-    subtitle: "Premium Fabric",
-    image: "thobe1.jpeg",
-    extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
-    oldPrice: "£39.99",
-    price: "£25.00",
-    inStock: false
-  },
-    {
-    id: "THB-0001",
-    category: "thobe",
-    subcategory: "men",
-    title: "Classic Thobe",
-    subtitle: "Premium Fabric",
-    image: "thobe1.jpeg",
-    extraImages: ["thobe1-2.jpeg", "thobe1-3.webp"],
-    oldPrice: "£39.99",
-    price: "£25.00",
-    inStock: false
+    inStock: true
   },
   {
     id: "ABY-0001",
@@ -108,6 +108,7 @@ const products = [
     inStock: false  
   }
 ];
+
 
 
 
