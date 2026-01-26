@@ -90,7 +90,7 @@ const products = [
     title: "Midnight Gloss",
     subtitle: "Refined Edge",
     image: "thobe8.jpg",
-    extraImages: ["thobe8-2.jpg", "thobe8-3.jpg"],
+    extraImages: ["thobe8-2.jpg"],
     oldPrice: "",
     price: "£25.00",
     inStock: true
@@ -144,6 +144,7 @@ const products = [
     inStock: false  
   }
 ];
+
 
 
 
