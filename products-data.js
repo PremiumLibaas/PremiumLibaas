@@ -11,6 +11,30 @@ const products = [
     price: "£25.00",
     inStock: true
   },
+    {
+    id: "THB-0002",
+    category: "thobe",
+    subcategory: "men",
+    title: "Royal White",
+    subtitle: "Clean Elegance",
+    image: "thobe2.jpg",
+    extraImages: ["thobe2-2.jpg", "thobe2-3.jpg"],
+    oldPrice: "£45.00",
+    price: "£30.00",
+    inStock: true
+  },
+      {
+    id: "THB-0003",
+    category: "thobe",
+    subcategory: "men",
+    title: "Golden Emir",
+    subtitle: "Elegent Contrast",
+    image: "thobe3.jpg",
+    extraImages: ["thobe3-2.jpg"],
+    oldPrice: "",
+    price: "£30.00",
+    inStock: true
+  },
    {
     id: "ABY-0001",
     category: "abayah",
@@ -24,6 +48,7 @@ const products = [
     inStock: false  
   }
 ];
+
 
 
 
