@@ -11,7 +11,7 @@ const products = [
     price: "£25.00",
     inStock: true
   },
-    {
+  {
     id: "THB-0002",
     category: "thobe",
     subcategory: "men",
@@ -23,7 +23,7 @@ const products = [
     price: "£30.00",
     inStock: true
   },
-      {
+  {
     id: "THB-0003",
     category: "thobe",
     subcategory: "men",
@@ -34,7 +34,7 @@ const products = [
     oldPrice: "",
     price: "£30.00",
     inStock: true
-  },
+   },
    {
     id: "ABY-0001",
     category: "abayah",
@@ -48,6 +48,7 @@ const products = [
     inStock: false  
   }
 ];
+
 
 
 
