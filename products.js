@@ -73,8 +73,24 @@ function renderProducts(list) {
     card.className = "card";
     card.dataset.id = product.id;
 
-    if (!product.in_stock || product.stock_count <= 0) {
+    /* OUT OF STOCK */
+    if (!product.stock_count || product.stock_count <= 0) {
       card.classList.add("out-of-stock");
+    }
+
+    /* SALE BADGE */
+    if (product.old_price && product.old_price > product.price) {
+      card.classList.add("on-sale");
+    }
+
+    /* PRICE DISPLAY */
+    let priceHTML = `<span class="price">£${product.price}</span>`;
+
+    if (product.old_price && product.old_price > product.price) {
+      priceHTML = `
+        <span class="old-price">£${product.old_price}</span>
+        <span class="price">£${product.price}</span>
+      `;
     }
 
     card.innerHTML = `
@@ -82,13 +98,14 @@ function renderProducts(list) {
       <div class="info">
         <h3>${product.title}</h3>
         <span>${product.subtitle || ""}</span>
-        <span class="price">£${product.price}</span>
+        ${priceHTML}
       </div>
     `;
 
     grid.appendChild(card);
   });
 }
+
 
 /* =========================
    FILTERS
@@ -97,13 +114,33 @@ function renderProducts(list) {
 function buildFilters() {
   filterBar.innerHTML = "";
 
+  const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+
+  /* ALL BUTTON */
   const allBtn = document.createElement("button");
   allBtn.className = "active";
   allBtn.innerText = "All";
-  allBtn.onclick = () => renderProducts(products);
-
+  allBtn.onclick = () => {
+    activeCategory = "all";
+    renderProducts(products);
+  };
   filterBar.appendChild(allBtn);
+
+  /* CATEGORY BUTTONS */
+  categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.innerText = cat;
+
+    btn.onclick = () => {
+      activeCategory = cat;
+      const filtered = products.filter(p => p.category === cat);
+      renderProducts(filtered);
+    };
+
+    filterBar.appendChild(btn);
+  });
 }
+
 
 /* =========================
    MODAL
@@ -184,4 +221,5 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
