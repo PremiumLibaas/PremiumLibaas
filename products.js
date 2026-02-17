@@ -8,9 +8,6 @@ const supabase = createClient(
   "sb_publishable_PCnYzjM7FYGxrcEJb-sihg_B7xInX6Y"
 );
 
-
-);
-
 /* =========================
    GLOBAL BUY LINKS
 ========================= */
@@ -231,7 +228,3 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
-
-
-
-
