@@ -185,7 +185,7 @@ grid.addEventListener("click", e => {
 
   const product = products.find(p => p.id == card.dataset.id); // double equals works
 // OR
-const product = products.find(p => p.id == Number(card.dataset.id));
+const product = products.find(p => p.id === Number(card.dataset.id));
 
   if (!product || !product.in_stock || product.stock_count <= 0) return;
 
@@ -234,6 +234,7 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
