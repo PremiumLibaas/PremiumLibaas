@@ -155,13 +155,33 @@ nextArrow.onclick = () => {
    CLOSE MODAL
 ========================= */
 
-function closeModal() {
+window.closeModal = function () {
   modal.style.display = "none";
-}
-
-if (closeBtn) closeBtn.onclick = closeModal;
-
-// Close when clicking outside image
-window.onclick = e => {
-  if (e.target === modal) closeModal();
 };
+
+/* CLOSE WHEN CLICKING OUTSIDE */
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+/* =========================
+   CONTACT DROPDOWN
+========================= */
+
+const contactBtn = document.getElementById("contactBtn");
+const contactDropdown = document.getElementById("contactDropdown");
+
+contactBtn.addEventListener("click", () => {
+  contactDropdown.style.display =
+    contactDropdown.style.display === "block" ? "none" : "block";
+});
+
+/* CLOSE DROPDOWN WHEN CLICK OUTSIDE */
+document.addEventListener("click", (e) => {
+  if (!contactBtn.contains(e.target) && !contactDropdown.contains(e.target)) {
+    contactDropdown.style.display = "none";
+  }
+});
+
