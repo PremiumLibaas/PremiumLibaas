@@ -5,7 +5,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const supabase = createClient(
   "https://gemntdgboyxotbuwpiss.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k"
+  "sb_publishable_PCnYzjM7FYGxrcEJb-sihg_B7xInX6Y"
 );
 
 
@@ -231,6 +231,7 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
