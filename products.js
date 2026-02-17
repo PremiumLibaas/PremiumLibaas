@@ -4,10 +4,10 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabase = createClient(
-  const supabase = createClient(
   "https://gemntdgboyxotbuwpiss.supabase.co",
   "sb_publishable_PCnYzjM7FYGxrcEJb-sihg_B7xInX6Y"
 );
+
 
 );
 
@@ -231,4 +231,5 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
 
