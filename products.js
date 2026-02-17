@@ -6,7 +6,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const supabase = createClient(
   "https://gemntdgboyxotbuwpiss.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k"     // replace with your public anon key
 );
 
 /* =========================
@@ -37,6 +37,8 @@ const modalImg = document.getElementById("modalImg");
 const modalTitle = document.getElementById("modalTitle");
 const prevArrow = document.getElementById("prevArrow");
 const nextArrow = document.getElementById("nextArrow");
+const filterBar = document.getElementById("filterBar");
+const subFilterBar = document.getElementById("subFilterBar");
 
 /* =========================
    LOAD PRODUCTS FROM DATABASE
@@ -46,7 +48,7 @@ async function loadProducts() {
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("active", true);
+    .eq("active", true); // only active products
 
   if (error) {
     console.error("Error loading products:", error);
@@ -91,7 +93,7 @@ function renderProducts(list) {
 
         <span class="price">£${product.price}</span>
 
-        ${product.stock_count <= 0 ? `<span class="stock-badge">Out of Stock</span>` : ""}
+        ${(!product.in_stock || product.stock_count <= 0) ? `<span class="stock-badge">Out of Stock</span>` : ""}
 
         <span class="product-id">ID: ${product.id}</span>
       </div>
@@ -105,22 +107,22 @@ function renderProducts(list) {
    FILTERS
 ========================= */
 
-const filterBar = document.getElementById("filterBar");
-
 function buildFilters(products) {
   filterBar.innerHTML = "";
 
+  // "All" button
   const allBtn = document.createElement("button");
   allBtn.className = "active";
   allBtn.innerText = "All";
   allBtn.onclick = () => filterItems("all", allBtn);
   filterBar.appendChild(allBtn);
 
+  // categories
   const categories = [...new Set(products.map(p => p.category))];
 
   categories.forEach(category => {
     const btn = document.createElement("button");
-    btn.innerText = category;
+    btn.innerText = category.charAt(0).toUpperCase() + category.slice(1);
     btn.onclick = () => filterItems(category, btn);
     filterBar.appendChild(btn);
   });
@@ -133,15 +135,65 @@ function filterItems(category, button) {
   document.querySelectorAll("#filterBar button").forEach(btn =>
     btn.classList.remove("active")
   );
+  if (button) button.classList.add("active");
 
-  button.classList.add("active");
+  let filtered = products;
 
-  if (category === "all") {
-    renderProducts(products);
+  if (category !== "all") {
+    filtered = products.filter(p => p.category === category);
+  }
+
+  renderProducts(filtered);
+  buildSubFilters(filtered);
+}
+
+function buildSubFilters(filteredProducts) {
+  if (!subFilterBar) return;
+
+  const subcategories = [...new Set(filteredProducts.map(p => p.subcategory).filter(Boolean))];
+
+  if (subcategories.length === 0) {
+    subFilterBar.style.display = "none";
+    subFilterBar.innerHTML = "";
     return;
   }
 
-  renderProducts(products.filter(p => p.category === category));
+  subFilterBar.style.display = "block";
+  subFilterBar.innerHTML = "";
+
+  const allBtn = document.createElement("button");
+  allBtn.className = "active";
+  allBtn.innerText = "All";
+  allBtn.onclick = () => filterSubItems("all", allBtn);
+  subFilterBar.appendChild(allBtn);
+
+  subcategories.forEach(sub => {
+    const btn = document.createElement("button");
+    btn.innerText = sub.charAt(0).toUpperCase() + sub.slice(1);
+    btn.onclick = () => filterSubItems(sub, btn);
+    subFilterBar.appendChild(btn);
+  });
+}
+
+function filterSubItems(subcategory, button) {
+  activeSubcategory = subcategory;
+
+  document.querySelectorAll("#subFilterBar button").forEach(btn =>
+    btn.classList.remove("active")
+  );
+  if (button) button.classList.add("active");
+
+  let filtered = products;
+
+  if (activeCategory !== "all") {
+    filtered = filtered.filter(p => p.category === activeCategory);
+  }
+
+  if (subcategory !== "all") {
+    filtered = filtered.filter(p => p.subcategory === subcategory);
+  }
+
+  renderProducts(filtered);
 }
 
 /* =========================
@@ -156,7 +208,7 @@ grid.addEventListener("click", e => {
   if (!card) return;
 
   const product = products.find(p => p.id === card.dataset.id);
-  if (!product || product.stock_count <= 0) return;
+  if (!product || !product.in_stock || product.stock_count <= 0) return;
 
   openModal(product);
 });
@@ -191,4 +243,3 @@ nextArrow.onclick = () => {
   currentIndex = (currentIndex + 1) % currentImages.length;
   modalImg.src = currentImages[currentIndex];
 };
-
