@@ -57,8 +57,8 @@ async function loadProducts() {
   renderProducts(products);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadProducts();
+loadProducts();
+
 });
 
 
@@ -234,6 +234,7 @@ document.addEventListener("click", e => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
