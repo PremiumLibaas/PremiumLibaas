@@ -37,6 +37,7 @@ const modalTitle = document.getElementById("modalTitle");
 const prevArrow = document.getElementById("prevArrow");
 const nextArrow = document.getElementById("nextArrow");
 const filterBar = document.getElementById("filterBar");
+const closeBtn = document.querySelector(".close");
 
 /* =========================
    LOAD PRODUCTS
@@ -124,12 +125,21 @@ grid.addEventListener("click", e => {
   modalImg.src = currentImages[currentIndex];
   modalTitle.innerText = product.title;
 
-  document.querySelector(".instagram").href = BUY_LINKS.instagram;
-  document.querySelector(".tiktok").href = BUY_LINKS.tiktok;
-  document.querySelector(".facebook").href = BUY_LINKS.facebook;
+  // Set social links safely
+  document.querySelector(".instagram").setAttribute("href", BUY_LINKS.instagram);
+  document.querySelector(".tiktok").setAttribute("href", BUY_LINKS.tiktok);
+  document.querySelector(".facebook").setAttribute("href", BUY_LINKS.facebook);
+
+  // Show/hide arrows depending on image count
+  prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
+  nextArrow.style.display = currentImages.length > 1 ? "block" : "none";
 
   modal.style.display = "flex";
 });
+
+/* =========================
+   ARROW NAVIGATION
+========================= */
 
 prevArrow.onclick = () => {
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
@@ -139,4 +149,19 @@ prevArrow.onclick = () => {
 nextArrow.onclick = () => {
   currentIndex = (currentIndex + 1) % currentImages.length;
   modalImg.src = currentImages[currentIndex];
+};
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+if (closeBtn) closeBtn.onclick = closeModal;
+
+// Close when clicking outside image
+window.onclick = e => {
+  if (e.target === modal) closeModal();
 };
