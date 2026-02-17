@@ -5,8 +5,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabase = createClient(
-  "YOUR_SUPABASE_URL",
-  "YOUR_PUBLIC_ANON_KEY"
+  "https://gemntdgboyxotbuwpiss.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k"
 );
 
 /* =========================
@@ -191,3 +191,4 @@ nextArrow.onclick = () => {
   currentIndex = (currentIndex + 1) % currentImages.length;
   modalImg.src = currentImages[currentIndex];
 };
+
