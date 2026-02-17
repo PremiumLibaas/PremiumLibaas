@@ -74,7 +74,7 @@ function renderProducts(list) {
     card.dataset.id = product.id;
 
     /* OUT OF STOCK */
-    if (!product.stock_count || product.stock_count <= 0) {
+    if (Number(product.stock_count) === 0) {
       card.classList.add("out-of-stock");
     }
 
@@ -231,6 +231,7 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
