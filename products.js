@@ -116,14 +116,22 @@ function buildFilters() {
 
   const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
 
+  function setActive(btn) {
+    document.querySelectorAll("#filterBar button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+
   /* ALL BUTTON */
   const allBtn = document.createElement("button");
   allBtn.className = "active";
   allBtn.innerText = "All";
+
   allBtn.onclick = () => {
     activeCategory = "all";
     renderProducts(products);
+    setActive(allBtn);
   };
+
   filterBar.appendChild(allBtn);
 
   /* CATEGORY BUTTONS */
@@ -135,11 +143,13 @@ function buildFilters() {
       activeCategory = cat;
       const filtered = products.filter(p => p.category === cat);
       renderProducts(filtered);
+      setActive(btn);
     };
 
     filterBar.appendChild(btn);
   });
 }
+
 
 
 /* =========================
@@ -221,5 +231,6 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
