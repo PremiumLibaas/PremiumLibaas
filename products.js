@@ -5,8 +5,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabase = createClient(
-  "https://gemntdgboyxotbuwpiss.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k"     // replace with your public anon key
+ "https://gemntdgboyxotbuwpiss.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k" // Your anon/public key
 );
 
 /* =========================
@@ -41,14 +41,14 @@ const filterBar = document.getElementById("filterBar");
 const subFilterBar = document.getElementById("subFilterBar");
 
 /* =========================
-   LOAD PRODUCTS FROM DATABASE
+   LOAD PRODUCTS FROM SUPABASE
 ========================= */
 
 async function loadProducts() {
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("active", true); // only active products
+    .eq("active", true);
 
   if (error) {
     console.error("Error loading products:", error);
@@ -56,7 +56,6 @@ async function loadProducts() {
   }
 
   products = data;
-
   buildFilters(products);
   renderProducts(products);
 }
@@ -93,7 +92,7 @@ function renderProducts(list) {
 
         <span class="price">£${product.price}</span>
 
-        ${(!product.in_stock || product.stock_count <= 0) ? `<span class="stock-badge">Out of Stock</span>` : ""}
+        ${!product.in_stock || product.stock_count <= 0 ? `<span class="stock-badge">Out of Stock</span>` : ""}
 
         <span class="product-id">ID: ${product.id}</span>
       </div>
@@ -110,16 +109,13 @@ function renderProducts(list) {
 function buildFilters(products) {
   filterBar.innerHTML = "";
 
-  // "All" button
   const allBtn = document.createElement("button");
   allBtn.className = "active";
   allBtn.innerText = "All";
   allBtn.onclick = () => filterItems("all", allBtn);
   filterBar.appendChild(allBtn);
 
-  // categories
   const categories = [...new Set(products.map(p => p.category))];
-
   categories.forEach(category => {
     const btn = document.createElement("button");
     btn.innerText = category.charAt(0).toUpperCase() + category.slice(1);
@@ -135,17 +131,16 @@ function filterItems(category, button) {
   document.querySelectorAll("#filterBar button").forEach(btn =>
     btn.classList.remove("active")
   );
-  if (button) button.classList.add("active");
+  button.classList.add("active");
 
-  let filtered = products;
-
-  if (category !== "all") {
-    filtered = products.filter(p => p.category === category);
-  }
-
+  let filtered = category === "all" ? products : products.filter(p => p.category === category);
   renderProducts(filtered);
   buildSubFilters(filtered);
 }
+
+/* =========================
+   SUBCATEGORY FILTER
+========================= */
 
 function buildSubFilters(filteredProducts) {
   if (!subFilterBar) return;
@@ -154,7 +149,6 @@ function buildSubFilters(filteredProducts) {
 
   if (subcategories.length === 0) {
     subFilterBar.style.display = "none";
-    subFilterBar.innerHTML = "";
     return;
   }
 
@@ -177,23 +171,14 @@ function buildSubFilters(filteredProducts) {
 
 function filterSubItems(subcategory, button) {
   activeSubcategory = subcategory;
-
   document.querySelectorAll("#subFilterBar button").forEach(btn =>
     btn.classList.remove("active")
   );
-  if (button) button.classList.add("active");
+  button.classList.add("active");
 
-  let filtered = products;
-
-  if (activeCategory !== "all") {
-    filtered = filtered.filter(p => p.category === activeCategory);
-  }
-
-  if (subcategory !== "all") {
-    filtered = filtered.filter(p => p.subcategory === subcategory);
-  }
-
-  renderProducts(filtered);
+  let result = products.filter(p => p.category === activeCategory);
+  if (subcategory !== "all") result = result.filter(p => p.subcategory === subcategory);
+  renderProducts(result);
 }
 
 /* =========================
