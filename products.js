@@ -85,7 +85,10 @@ function renderProducts(list) {
     }
 
     /* PRICE DISPLAY */
-    let priceHTML = `<span class="price">£${product.price}</span>`;
+    let priceHTML = product.price != null
+  ? `<span class="price">£${product.price}</span>`
+  : "";
+
 
     if (product.old_price && product.old_price > product.price) {
       priceHTML = `
@@ -288,6 +291,7 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
