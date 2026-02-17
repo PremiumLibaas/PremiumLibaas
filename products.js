@@ -1,18 +1,16 @@
 /* =========================
    SUPABASE SETUP
 ========================= */
-
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabase = createClient(
- "https://gemntdgboyxotbuwpiss.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k" // Your anon/public key
+  "https://gemntdgboyxotbuwpiss.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbW50ZGdib3l4b3RidXdwaXNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMTM0NDgsImV4cCI6MjA4Njg4OTQ0OH0.xQDRWiB1hAFkpXj2xyjh_RlgF86nR4PRf2pKyruup9k"
 );
 
 /* =========================
    GLOBAL BUY LINKS
 ========================= */
-
 const BUY_LINKS = {
   instagram: "https://instagram.com/premium_libaas",
   tiktok: "https://www.tiktok.com/@premium_libaas",
@@ -22,7 +20,6 @@ const BUY_LINKS = {
 /* =========================
    STATE
 ========================= */
-
 let products = [];
 let activeCategory = "all";
 let activeSubcategory = "all";
@@ -30,7 +27,6 @@ let activeSubcategory = "all";
 /* =========================
    DOM ELEMENTS
 ========================= */
-
 const grid = document.getElementById("productGrid");
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
@@ -39,11 +35,12 @@ const prevArrow = document.getElementById("prevArrow");
 const nextArrow = document.getElementById("nextArrow");
 const filterBar = document.getElementById("filterBar");
 const subFilterBar = document.getElementById("subFilterBar");
+const contactBtn = document.getElementById("contactBtn");
+const contactDropdown = document.getElementById("contactDropdown");
 
 /* =========================
    LOAD PRODUCTS FROM SUPABASE
 ========================= */
-
 async function loadProducts() {
   const { data, error } = await supabase
     .from("products")
@@ -65,8 +62,8 @@ loadProducts();
 /* =========================
    RENDER PRODUCTS
 ========================= */
-
 function renderProducts(list) {
+  if (!grid) return;
   grid.innerHTML = "";
 
   list.forEach(product => {
@@ -86,18 +83,13 @@ function renderProducts(list) {
       <img src="${product.main_image}" alt="${product.title}">
       <div class="info">
         <h3>${product.title}</h3>
-        <span>${product.subtitle}</span>
-
+        <span>${product.subtitle || ""}</span>
         ${product.old_price ? `<span class="old-price">£${product.old_price}</span>` : ""}
-
         <span class="price">£${product.price}</span>
-
-        ${!product.in_stock || product.stock_count <= 0 ? `<span class="stock-badge">Out of Stock</span>` : ""}
-
+        ${(!product.in_stock || product.stock_count <= 0) ? `<span class="stock-badge">Out of Stock</span>` : ""}
         <span class="product-id">ID: ${product.id}</span>
       </div>
     `;
-
     grid.appendChild(card);
   });
 }
@@ -105,8 +97,8 @@ function renderProducts(list) {
 /* =========================
    FILTERS
 ========================= */
-
 function buildFilters(products) {
+  if (!filterBar) return;
   filterBar.innerHTML = "";
 
   const allBtn = document.createElement("button");
@@ -128,27 +120,23 @@ function filterItems(category, button) {
   activeCategory = category;
   activeSubcategory = "all";
 
-  document.querySelectorAll("#filterBar button").forEach(btn =>
-    btn.classList.remove("active")
-  );
+  document.querySelectorAll("#filterBar button").forEach(btn => btn.classList.remove("active"));
   button.classList.add("active");
 
-  let filtered = category === "all" ? products : products.filter(p => p.category === category);
-  renderProducts(filtered);
-  buildSubFilters(filtered);
-}
+  let filtered = products;
+  if (category !== "all") filtered = products.filter(p => p.category === category);
 
-/* =========================
-   SUBCATEGORY FILTER
-========================= */
+  buildSubFilters(filtered);
+  renderProducts(filtered);
+}
 
 function buildSubFilters(filteredProducts) {
   if (!subFilterBar) return;
-
   const subcategories = [...new Set(filteredProducts.map(p => p.subcategory).filter(Boolean))];
 
   if (subcategories.length === 0) {
     subFilterBar.style.display = "none";
+    subFilterBar.innerHTML = "";
     return;
   }
 
@@ -171,20 +159,20 @@ function buildSubFilters(filteredProducts) {
 
 function filterSubItems(subcategory, button) {
   activeSubcategory = subcategory;
-  document.querySelectorAll("#subFilterBar button").forEach(btn =>
-    btn.classList.remove("active")
-  );
+
+  document.querySelectorAll("#subFilterBar button").forEach(btn => btn.classList.remove("active"));
   button.classList.add("active");
 
-  let result = products.filter(p => p.category === activeCategory);
+  let result = products;
+  if (activeCategory !== "all") result = products.filter(p => p.category === activeCategory);
   if (subcategory !== "all") result = result.filter(p => p.subcategory === subcategory);
+
   renderProducts(result);
 }
 
 /* =========================
-   MODAL
+   MODAL LOGIC
 ========================= */
-
 let currentImages = [];
 let currentIndex = 0;
 
@@ -215,9 +203,7 @@ function openModal(product) {
   modal.style.display = "flex";
 }
 
-function closeModal() {
-  modal.style.display = "none";
-}
+function closeModal() { modal.style.display = "none"; }
 
 prevArrow.onclick = () => {
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
@@ -228,3 +214,17 @@ nextArrow.onclick = () => {
   currentIndex = (currentIndex + 1) % currentImages.length;
   modalImg.src = currentImages[currentIndex];
 };
+
+/* =========================
+   CONTACT DROPDOWN
+========================= */
+contactBtn?.addEventListener("click", e => {
+  e.stopPropagation();
+  contactDropdown.style.display = contactDropdown.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", e => {
+  if (contactBtn && !contactBtn.contains(e.target) && !contactDropdown.contains(e.target)) {
+    contactDropdown.style.display = "none";
+  }
+});
