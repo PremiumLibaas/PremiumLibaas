@@ -191,18 +191,18 @@ allBtn.onclick = () => {
     btn.innerText = sub;
 
     btn.onclick = () => {
-      document.querySelectorAll("#subFilterBar button")
-        .forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#subFilterBar button")
+    .forEach(b => b.classList.remove("active"));
 
-      btn.classList.add("active");
+  btn.classList.add("active");
 
-      renderProducts(
-        products.filter(p =>
-          p.category === category &&
-          p.subcategory === sub
-        )
-      );
-    };
+  renderProducts(
+    products.filter(p =>
+      p.category === category && p.subcategory === sub
+    )
+  );
+};
+
 
     subFilterBar.appendChild(btn);
   });
@@ -288,6 +288,7 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
