@@ -49,7 +49,7 @@ async function loadProducts() {
     .eq("active", true);
 
   if (error) {
-    console.error(error);
+    console.error("Supabase error:", error);
     return;
   }
 
@@ -72,11 +72,15 @@ function renderProducts(list) {
     card.className = "card";
     card.dataset.id = product.id;
 
+    if (!product.in_stock || product.stock_count <= 0) {
+      card.classList.add("out-of-stock");
+    }
+
     card.innerHTML = `
-      <img src="${product.main_image}">
+      <img src="${product.main_image}" alt="${product.title}">
       <div class="info">
         <h3>${product.title}</h3>
-        <span>${product.subtitle}</span>
+        <span>${product.subtitle || ""}</span>
         <span class="price">£${product.price}</span>
       </div>
     `;
@@ -92,12 +96,12 @@ function renderProducts(list) {
 function buildFilters() {
   filterBar.innerHTML = "";
 
-  const btn = document.createElement("button");
-  btn.innerText = "All";
-  btn.className = "active";
-  btn.onclick = () => renderProducts(products);
+  const allBtn = document.createElement("button");
+  allBtn.className = "active";
+  allBtn.innerText = "All";
+  allBtn.onclick = () => renderProducts(products);
 
-  filterBar.appendChild(btn);
+  filterBar.appendChild(allBtn);
 }
 
 /* =========================
@@ -112,12 +116,17 @@ grid.addEventListener("click", e => {
   if (!card) return;
 
   const product = products.find(p => p.id === card.dataset.id);
+  if (!product) return;
 
   currentImages = [product.main_image, ...(product.extra_images || [])];
   currentIndex = 0;
 
   modalImg.src = currentImages[currentIndex];
   modalTitle.innerText = product.title;
+
+  document.querySelector(".instagram").href = BUY_LINKS.instagram;
+  document.querySelector(".tiktok").href = BUY_LINKS.tiktok;
+  document.querySelector(".facebook").href = BUY_LINKS.facebook;
 
   modal.style.display = "flex";
 });
