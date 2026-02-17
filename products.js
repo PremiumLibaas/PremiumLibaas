@@ -37,6 +37,7 @@ const modalTitle = document.getElementById("modalTitle");
 const prevArrow = document.getElementById("prevArrow");
 const nextArrow = document.getElementById("nextArrow");
 const filterBar = document.getElementById("filterBar");
+const subFilterBar = document.getElementById("subFilterBar");
 const closeBtn = document.querySelector(".close");
 
 /* =========================
@@ -127,10 +128,12 @@ function buildFilters() {
   allBtn.innerText = "All";
 
   allBtn.onclick = () => {
-    activeCategory = "all";
-    renderProducts(products);
-    setActive(allBtn);
-  };
+  activeCategory = "all";
+  renderProducts(products);
+  subFilterBar.style.display = "none";
+  setActive(allBtn);
+};
+
 
   filterBar.appendChild(allBtn);
 
@@ -140,16 +143,64 @@ function buildFilters() {
     btn.innerText = cat;
 
     btn.onclick = () => {
-      activeCategory = cat;
-      const filtered = products.filter(p => p.category === cat);
-      renderProducts(filtered);
-      setActive(btn);
-    };
+  activeCategory = cat;
+  const filtered = products.filter(p => p.category === cat);
+  renderProducts(filtered);
+  buildSubFilters(cat);
+  setActive(btn);
+};
 
     filterBar.appendChild(btn);
   });
 }
 
+function buildSubFilters(category) {
+  subFilterBar.innerHTML = "";
+
+  const subs = [...new Set(
+    products
+      .filter(p => p.category === category && p.subcategory)
+      .map(p => p.subcategory)
+  )];
+
+  if (subs.length === 0) {
+    subFilterBar.style.display = "none";
+    return;
+  }
+
+  subFilterBar.style.display = "block";
+
+  const allBtn = document.createElement("button");
+  allBtn.innerText = "All";
+  allBtn.className = "active";
+
+  allBtn.onclick = () => {
+    renderProducts(products.filter(p => p.category === category));
+  };
+
+  subFilterBar.appendChild(allBtn);
+
+  subs.forEach(sub => {
+    const btn = document.createElement("button");
+    btn.innerText = sub;
+
+    btn.onclick = () => {
+      document.querySelectorAll("#subFilterBar button")
+        .forEach(b => b.classList.remove("active"));
+
+      btn.classList.add("active");
+
+      renderProducts(
+        products.filter(p =>
+          p.category === category &&
+          p.subcategory === sub
+        )
+      );
+    };
+
+    subFilterBar.appendChild(btn);
+  });
+}
 
 
 /* =========================
@@ -231,6 +282,7 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
