@@ -171,12 +171,18 @@ function buildSubFilters(category) {
   subFilterBar.style.display = "block";
 
   const allBtn = document.createElement("button");
-  allBtn.innerText = "All";
-  allBtn.className = "active";
+allBtn.innerText = "All";
+allBtn.className = "active";
 
-  allBtn.onclick = () => {
-    renderProducts(products.filter(p => p.category === category));
-  };
+allBtn.onclick = () => {
+  document.querySelectorAll("#subFilterBar button")
+    .forEach(b => b.classList.remove("active"));
+
+  allBtn.classList.add("active");
+
+  renderProducts(products.filter(p => p.category === category));
+};
+
 
   subFilterBar.appendChild(allBtn);
 
@@ -282,6 +288,7 @@ document.addEventListener("click", (e) => {
     contactDropdown.style.display = "none";
   }
 });
+
 
 
 
