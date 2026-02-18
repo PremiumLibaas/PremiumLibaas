@@ -32,7 +32,6 @@ let activeCategory = "all";
 
 const grid = document.getElementById("productGrid");
 const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
 const modalTitle = document.getElementById("modalTitle");
 const prevArrow = document.getElementById("prevArrow");
 const nextArrow = document.getElementById("nextArrow");
@@ -333,6 +332,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
