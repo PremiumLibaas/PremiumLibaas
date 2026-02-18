@@ -293,6 +293,47 @@ document.addEventListener("click", (e) => {
 });
 
 
+let currentIndex = 0;
+let startX = 0;
+
+const slider = document.getElementById("modalSlider");
+
+function loadImages(images) {
+  slider.innerHTML = "";
+
+  images.forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    slider.appendChild(img);
+  });
+
+  currentIndex = 0;
+  updateSlide();
+}
+
+function updateSlide() {
+  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+/* TOUCH SWIPE */
+slider.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+slider.addEventListener("touchend", e => {
+  let diff = startX - e.changedTouches[0].clientX;
+
+  if (diff > 50 && currentIndex < slider.children.length - 1) {
+    currentIndex++;
+  }
+
+  if (diff < -50 && currentIndex > 0) {
+    currentIndex--;
+  }
+
+  updateSlide();
+});
+
 
 
 
