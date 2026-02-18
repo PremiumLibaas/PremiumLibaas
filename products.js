@@ -292,7 +292,6 @@ document.addEventListener("click", (e) => {
 });
 
 
-let currentIndex = 0;
 let startX = 0;
 
 const slider = document.getElementById("modalSlider");
@@ -332,6 +331,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
