@@ -229,7 +229,7 @@ grid.addEventListener("click", e => {
   currentImages = [product.main_image, ...(product.extra_images || [])];
   currentIndex = 0;
 
-  modalImg.src = currentImages[currentIndex];
+  loadImages(currentImages);
   modalTitle.innerText = product.title;
 
   // Set social links safely
@@ -250,12 +250,12 @@ grid.addEventListener("click", e => {
 
 prevArrow.onclick = () => {
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-  modalImg.src = currentImages[currentIndex];
+  updateSlide();
 };
 
 nextArrow.onclick = () => {
   currentIndex = (currentIndex + 1) % currentImages.length;
-  modalImg.src = currentImages[currentIndex];
+  updateSlide();
 };
 
 /* =========================
@@ -333,6 +333,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
