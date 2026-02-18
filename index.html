@@ -218,12 +218,16 @@ h2 {
 
 .card {
     position: relative;
-    background: #ffffff;   /* white top */
+    background: #ffffff;
     border-radius: 22px;
     overflow: hidden;
     cursor: pointer;
     transition: transform .4s, box-shadow .4s;
+
+    display: flex;
+    flex-direction: column;
 }
+
 
 
 
@@ -243,13 +247,16 @@ h2 {
     text-align: center;
     background: linear-gradient(180deg, #1b1d2b, #141520);
     border-top: 1px solid rgba(0,0,0,0.08);
+    flex-grow: 1;   /* THIS FIXES IT */
 }
 
 
 
 .card h3 {
     font-family: 'Playfair Display', serif;
+    color: #fff;
 }
+
 
 .card span {
     display: block;
@@ -507,6 +514,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
