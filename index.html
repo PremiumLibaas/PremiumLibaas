@@ -38,14 +38,28 @@
   margin-bottom: 15px;
 }
 
-.size-guide-img-wrap {
-  position: relative;
+.size-guide-img-wrap{
   width: 100%;
-  height: 70vh;
+  height: 70vh;              /* scroll window height */
   max-height: 650px;
-  overflow: hidden;
-  background: #ffffff; /* white background behind chart */
+  overflow-y: auto;          /* ✅ scroll down */
+  overflow-x: hidden;
+  background: #ffffff;
   border-radius: 18px;
+
+  -webkit-overflow-scrolling: touch; /* ✅ smooth iPhone scroll */
+}
+
+.size-guide-img-wrap { padding: 20px 0; }
+/* the image inside */
+#sizeGuideImg{
+  width: 100%;
+  height: auto;              /* ✅ keeps full image ratio */
+  display: block;
+
+  /* ✅ “zoom in more” (pick ONE) */
+  transform: scale(1.25);    /* increase to 1.4 / 1.6 if you want more zoom */
+  transform-origin: top center;
 }
 
 #sizeGuideSlider {
@@ -644,6 +658,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
