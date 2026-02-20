@@ -43,7 +43,7 @@
   height: 70vh;              /* scroll window height */
   max-height: 650px;
   overflow-y: auto;          /* ✅ scroll down */
-  overflow-x: hidden;
+  overflow-x: auto;
   background: #ffffff;
   border-radius: 18px;
 
@@ -53,12 +53,12 @@
 .size-guide-img-wrap { padding: 20px 0; }
 /* the image inside */
 #sizeGuideImg{
-  width: 100%;
-  height: auto;              /* ✅ keeps full image ratio */
+  width: max-content;      /* 👈 allows sideways scroll */
+  min-width: 100%;
+  height: auto;
   display: block;
 
-  /* ✅ “zoom in more” (pick ONE) */
-  transform: scale(1.25);    /* increase to 1.4 / 1.6 if you want more zoom */
+  transform: scale(1.25);
   transform-origin: top center;
 }
 
@@ -650,6 +650,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
