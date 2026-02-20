@@ -1,22 +1,35 @@
-/* ========================= SUPABASE SETUP ========================= */ 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm' 
+/* =========================
+   SUPABASE SETUP
+========================= */
+
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
 const supabase = createClient(
   "https://gemntdgboyxotbuwpiss.supabase.co",
   "sb_publishable_PCnYzjM7FYGxrcEJb-sihg_B7xInX6Y"
 );
 
-/* ========================= GLOBAL BUY LINKS ========================= */
+/* =========================
+   GLOBAL BUY LINKS
+========================= */
+
 const BUY_LINKS = {
   instagram: "https://instagram.com/premium_libaas",
   tiktok: "https://www.tiktok.com/@premium_libaas",
   facebook: "https://www.facebook.com/profile.php?id=61585372481020"
 };
 
-/* ========================= STATE ========================= */
+/* =========================
+   STATE
+========================= */
+
 let products = [];
 let activeCategory = "all";
 
-/* ========================= DOM ELEMENTS ========================= */
+/* =========================
+   DOM ELEMENTS
+========================= */
+
 const grid = document.getElementById("productGrid");
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
@@ -26,7 +39,10 @@ const filterBar = document.getElementById("filterBar");
 const subFilterBar = document.getElementById("subFilterBar");
 const closeBtn = document.querySelector(".close");
 
-/* ========================= LOAD PRODUCTS ========================= */
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
 async function loadProducts() {
   const { data, error } = await supabase
     .from("products")
@@ -42,11 +58,16 @@ async function loadProducts() {
   buildFilters();
   renderProducts(products);
 }
+
 loadProducts();
 
-/* ========================= RENDER PRODUCTS ========================= */
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
 function renderProducts(list) {
   grid.innerHTML = "";
+
   list.forEach(product => {
     const card = document.createElement("div");
     card.className = "card";
@@ -63,7 +84,10 @@ function renderProducts(list) {
     }
 
     /* PRICE DISPLAY */
-    let priceHTML = product.price != null ? `<span class="price">£${product.price}</span>` : "";
+    let priceHTML = product.price != null
+  ? `<span class="price">£${product.price}</span>`
+  : "";
+
 
     if (product.old_price && product.old_price > product.price) {
       priceHTML = `
@@ -85,9 +109,14 @@ function renderProducts(list) {
   });
 }
 
-/* ========================= FILTERS ========================= */
+
+/* =========================
+   FILTERS
+========================= */
+
 function buildFilters() {
   filterBar.innerHTML = "";
+
   const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
 
   function setActive(btn) {
@@ -99,25 +128,30 @@ function buildFilters() {
   const allBtn = document.createElement("button");
   allBtn.className = "active";
   allBtn.innerText = "All";
+
   allBtn.onclick = () => {
-    activeCategory = "all";
-    renderProducts(products);
-    subFilterBar.style.display = "none";
-    setActive(allBtn);
-  };
+  activeCategory = "all";
+  renderProducts(products);
+  subFilterBar.style.display = "none";
+  setActive(allBtn);
+};
+
+
   filterBar.appendChild(allBtn);
 
   /* CATEGORY BUTTONS */
   categories.forEach(cat => {
     const btn = document.createElement("button");
     btn.innerText = cat;
+
     btn.onclick = () => {
-      activeCategory = cat;
-      const filtered = products.filter(p => p.category === cat);
-      renderProducts(filtered);
-      buildSubFilters(cat);
-      setActive(btn);
-    };
+  activeCategory = cat;
+  const filtered = products.filter(p => p.category === cat);
+  renderProducts(filtered);
+  buildSubFilters(cat);
+  setActive(btn);
+};
+
     filterBar.appendChild(btn);
   });
 }
@@ -139,32 +173,48 @@ function buildSubFilters(category) {
   subFilterBar.style.display = "block";
 
   const allBtn = document.createElement("button");
-  allBtn.innerText = "All";
-  allBtn.className = "active";
-  allBtn.onclick = () => {
-    document.querySelectorAll("#subFilterBar button")
-      .forEach(b => b.classList.remove("active"));
-    allBtn.classList.add("active");
-    renderProducts(products.filter(p => p.category === category));
-  };
+allBtn.innerText = "All";
+allBtn.className = "active";
+
+allBtn.onclick = () => {
+  document.querySelectorAll("#subFilterBar button")
+    .forEach(b => b.classList.remove("active"));
+
+  allBtn.classList.add("active");
+
+  renderProducts(products.filter(p => p.category === category));
+};
+
+
   subFilterBar.appendChild(allBtn);
 
   subs.forEach(sub => {
     const btn = document.createElement("button");
     btn.innerText = sub;
+
     btn.onclick = () => {
-      document.querySelectorAll("#subFilterBar button")
-        .forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderProducts(
-        products.filter(p => p.category === category && p.subcategory === sub)
-      );
-    };
+  document.querySelectorAll("#subFilterBar button")
+    .forEach(b => b.classList.remove("active"));
+
+  btn.classList.add("active");
+
+  renderProducts(
+    products.filter(p =>
+      p.category === category && p.subcategory === sub
+    )
+  );
+};
+
+
     subFilterBar.appendChild(btn);
   });
 }
 
-/* ========================= MODAL ========================= */
+
+/* =========================
+   MODAL
+========================= */
+
 let currentImages = [];
 let currentIndex = 0;
 
@@ -193,7 +243,10 @@ grid.addEventListener("click", e => {
   modal.style.display = "flex";
 });
 
-/* ========================= ARROW NAVIGATION ========================= */
+/* =========================
+   ARROW NAVIGATION
+========================= */
+
 prevArrow.onclick = () => {
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
   updateSlide();
@@ -204,7 +257,10 @@ nextArrow.onclick = () => {
   updateSlide();
 };
 
-/* ========================= CLOSE MODAL ========================= */
+/* =========================
+   CLOSE MODAL
+========================= */
+
 window.closeModal = function () {
   modal.style.display = "none";
 };
@@ -216,12 +272,16 @@ modal.addEventListener("click", (e) => {
   }
 });
 
-/* ========================= CONTACT DROPDOWN ========================= */
+/* =========================
+   CONTACT DROPDOWN
+========================= */
+
 const contactBtn = document.getElementById("contactBtn");
 const contactDropdown = document.getElementById("contactDropdown");
 
 contactBtn.addEventListener("click", () => {
-  contactDropdown.style.display = contactDropdown.style.display === "block" ? "none" : "block";
+  contactDropdown.style.display =
+    contactDropdown.style.display === "block" ? "none" : "block";
 });
 
 /* CLOSE DROPDOWN WHEN CLICK OUTSIDE */
@@ -231,16 +291,20 @@ document.addEventListener("click", (e) => {
   }
 });
 
+
 let startX = 0;
+
 const slider = document.getElementById("modalSlider");
 
 function loadImages(images) {
   slider.innerHTML = "";
+
   images.forEach(src => {
     const img = document.createElement("img");
     img.src = src;
     slider.appendChild(img);
   });
+
   currentIndex = 0;
   updateSlide();
 }
@@ -256,11 +320,23 @@ slider.addEventListener("touchstart", e => {
 
 slider.addEventListener("touchend", e => {
   let diff = startX - e.changedTouches[0].clientX;
+
   if (diff > 50 && currentIndex < slider.children.length - 1) {
     currentIndex++;
   }
+
   if (diff < -50 && currentIndex > 0) {
     currentIndex--;
   }
+
   updateSlide();
 });
+
+
+
+
+
+
+
+
+
