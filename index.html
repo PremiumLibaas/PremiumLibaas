@@ -19,6 +19,52 @@
 
 <style>
 
+/* SIZE GUIDE POPUP */
+.size-guide-content {
+  background: linear-gradient(180deg, #1b1d2b, #12131a);
+  max-width: 950px;
+  width: 90%;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.size-guide-body {
+  padding: 25px;
+}
+
+.size-guide-title {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 15px;
+}
+
+.size-guide-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  max-height: 650px;
+  overflow: hidden;
+  background: #ffffff; /* white background behind chart */
+  border-radius: 18px;
+}
+
+#sizeGuideSlider {
+  width: 100%;
+  height: 100%;
+}
+
+/* make sure arrows sit above charts */
+#sizeGuidePrev, #sizeGuideNext {
+  z-index: 60;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .size-guide-img-wrap {
+    height: 60vh;
+  }
+}
+
 /* OUT OF STOCK STYLING */
 .card.out-of-stock {
   opacity: 0.45;
@@ -529,6 +575,7 @@ footer {
     <div class="logo"><img src="logo.png"></div>
     <nav>
         <a href="#catalogue">Shop</a>
+        <a id="sizeGuideBtn">Size Guide</a>
         <a id="contactBtn">Contact ▼</a>
         <div class="contact-dropdown" id="contactDropdown">
             <a href="mailto:premiumlibaas@gmail.com">Email</a>
@@ -577,6 +624,22 @@ footer {
     </div>
 </div>
 
+<div class="modal" id="sizeGuideModal">
+  <div class="size-guide-content">
+    <div class="close" id="closeSizeGuide">×</div>
+
+    <div class="size-guide-body">
+      <h3 class="size-guide-title">Size Guide</h3>
+
+      <div class="size-guide-img-wrap">
+        <div class="modal-slider" id="sizeGuideSlider"></div>
+
+        <div class="arrow arrow-left" id="sizeGuidePrev">&#10094;</div>
+        <div class="arrow arrow-right" id="sizeGuideNext">&#10095;</div>
+      </div>
+    </div>
+  </div>
+</div>
 <footer>© 2025 Premium Libaas</footer>
 
 <script type="module" src="products.js"></script>
@@ -584,6 +647,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
