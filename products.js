@@ -256,22 +256,21 @@ if (sizes && sizes.length > 0) {
    /* SIZE SELECTOR LOGIC */
 let selectedSize = null;
 
+/* MULTI SIZE SELECTOR */
+let selectedSizes = new Set();
+
 sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   pill.addEventListener("click", () => {
 
-    // if clicking the same one → unselect
+    // toggle selection
     if (pill.classList.contains("selected")) {
       pill.classList.remove("selected");
-      selectedSize = null;
-      return;
+      selectedSizes.delete(pill.innerText);
+    } else {
+      pill.classList.add("selected");
+      selectedSizes.add(pill.innerText);
     }
 
-    // remove from others
-    sizesBox.querySelectorAll(".size-pill").forEach(p => p.classList.remove("selected"));
-
-    // select this
-    pill.classList.add("selected");
-    selectedSize = pill.innerText;
   });
 });
 
@@ -377,6 +376,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
