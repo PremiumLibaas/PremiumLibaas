@@ -362,8 +362,10 @@ h2 {
     cursor: pointer;
     background: rgba(27,29,43,.6);
     border-radius: 50%;
-    padding: 8px;
-    display: block;
+    padding: 10px;
+
+    z-index: 50;           /* 👈 IMPORTANT: above image */
+    pointer-events: auto;  /* 👈 ensures clickable */
 }
 
 .arrow-left { left: 10px; }
@@ -593,6 +595,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
