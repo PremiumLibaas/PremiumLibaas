@@ -236,10 +236,14 @@ grid.addEventListener("click", async e => {
 const sizesBox = document.getElementById("sizesContainer");
 sizesBox.innerHTML = "";
 
-const { data: sizes } = await supabase
+const { data: sizes, error: sizesError } = await supabase
   .from("product_sizes")
   .select("*")
   .eq("product_id", product.id);
+
+if (sizesError) {
+  console.error("Sizes load error:", sizesError);
+}
 
 if (sizes && sizes.length > 0) {
   sizesBox.innerHTML = `
@@ -380,6 +384,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
