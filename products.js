@@ -292,13 +292,21 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
    ARROW NAVIGATION
 ========================= */
 
-prevArrow.onclick = () => {
-  currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+prevArrow.onclick = (e) => {
+  e.stopPropagation(); // prevents modal click interference
+  const total = slider.children.length;
+  if (total <= 1) return;
+
+  currentIndex = (currentIndex - 1 + total) % total;
   updateSlide();
 };
 
-nextArrow.onclick = () => {
-  currentIndex = (currentIndex + 1) % currentImages.length;
+nextArrow.onclick = (e) => {
+  e.stopPropagation();
+  const total = slider.children.length;
+  if (total <= 1) return;
+
+  currentIndex = (currentIndex + 1) % total;
   updateSlide();
 };
 
@@ -386,6 +394,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
