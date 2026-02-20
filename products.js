@@ -38,7 +38,6 @@ const nextArrow = document.getElementById("nextArrow");
 const filterBar = document.getElementById("filterBar");
 const subFilterBar = document.getElementById("subFilterBar");
 const closeBtn = document.querySelector(".close");
-const sizesSection = document.getElementById("sizesSection");
 const sizesContainer = document.getElementById("sizesContainer");
 
 /* =========================
@@ -304,24 +303,24 @@ modal.addEventListener("click", (e) => {
    SIZE SELECT LOGIC
 ========================= */
 
-sizesContainer.addEventListener("click", (e) => {
-  const pill = e.target.closest(".size-pill");
-  if (!pill) return;
+if (sizesContainer) {
+  sizesContainer.addEventListener("click", (e) => {
+    const pill = e.target.closest(".size-pill");
+    if (!pill) return;
 
-  // stop out-of-stock sizes
-  if (pill.classList.contains("out")) return;
+    if (pill.classList.contains("out")) return;
 
-  const size = pill.dataset.size;
+    const size = pill.dataset.size;
 
-  // toggle select/unselect (multi select)
-  if (selectedSizes.has(size)) {
-    selectedSizes.delete(size);
-    pill.classList.remove("selected");
-  } else {
-    selectedSizes.add(size);
-    pill.classList.add("selected");
-  }
-});
+    if (selectedSizes.has(size)) {
+      selectedSizes.delete(size);
+      pill.classList.remove("selected");
+    } else {
+      selectedSizes.add(size);
+      pill.classList.add("selected");
+    }
+  });
+}
 /* =========================
    CONTACT DROPDOWN
 ========================= */
@@ -381,6 +380,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
