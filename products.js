@@ -407,9 +407,8 @@ const closeSizeGuide = document.getElementById("closeSizeGuide");
 
 // ✅ Put your size-guide image URLs here
 // Use the raw github links or Supabase storage public links
-const SIZE_GUIDE_IMAGES = [
-  "https://github.com/PremiumLibaas/PremiumLibaas/blob/main/size_chart_combined.png?raw=true"
-];
+const SIZE_GUIDE_IMAGE =
+  "https://github.com/PremiumLibaas/PremiumLibaas/blob/main/size_chart_combined.png?raw=true";
 
 let guideIndex = 0;
 let guideStartX = 0;
@@ -425,6 +424,7 @@ function openSizeGuide() {
 
   sizeGuideModal.style.display = "flex";
 }
+
 
 
 
