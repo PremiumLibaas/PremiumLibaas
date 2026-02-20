@@ -308,18 +308,6 @@ h2 {
 }
 
 .modal-img-container {
-    .modal-slider {
-    display: flex;
-    height: 100%;
-    transition: transform 0.4s cubic-bezier(.22,.61,.36,1);
-}
-
-.modal-slider img {
-    min-width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
     width: 50%; 
     height: 550px;
     position: relative;
@@ -336,16 +324,18 @@ h2 {
     object-fit: contain;
 }
 
-/* SLIDER FIX — PASTE HERE */
+/* SLIDER (FINAL) */
 .modal-slider {
+  position: absolute;
+  inset: 0;
   display: flex;
-  width: 100%;
   height: 100%;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s cubic-bezier(.22,.61,.36,1);
+  z-index: 1; /* slider is under arrows */
 }
 
 .modal-slider img {
-  width: 100%;
+  min-width: 100%;
   height: 100%;
   object-fit: contain;
   flex-shrink: 0;
@@ -364,6 +354,9 @@ h2 {
     border-radius: 50%;
     padding: 8px;
     display: none;
+  
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .arrow-left { left: 10px; }
@@ -515,6 +508,10 @@ footer {
   text-decoration: line-through;
   cursor: not-allowed;
 }
+.size-pill.selected {
+  background: #caa85c;
+  color: #111;
+}
 </style>
 </head>
 
@@ -582,6 +579,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
