@@ -425,6 +425,17 @@ function openSizeGuide() {
   sizeGuideModal.style.display = "flex";
 }
 
+sizeGuideBtn.addEventListener("click", openSizeGuide);
+
+closeSizeGuide.addEventListener("click", () => {
+  sizeGuideModal.style.display = "none";
+});
+
+sizeGuideModal.addEventListener("click", (e) => {
+  if (e.target === sizeGuideModal) sizeGuideModal.style.display = "none";
+});
+
+
 
 
 
