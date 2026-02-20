@@ -218,7 +218,7 @@ allBtn.onclick = () => {
 let currentImages = [];
 let currentIndex = 0;
 
-grid.addEventListener("click", e => {
+grid.addEventListener("click", async e => {
   const card = e.target.closest(".card");
   if (!card) return;
 
@@ -354,6 +354,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
