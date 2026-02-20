@@ -230,6 +230,29 @@ grid.addEventListener("click", e => {
 
   loadImages(currentImages);
   modalTitle.innerText = product.title;
+  /* LOAD SIZES */
+const sizesBox = document.getElementById("sizesContainer");
+sizesBox.innerHTML = "";
+
+const { data: sizes } = await supabase
+  .from("product_sizes")
+  .select("*")
+  .eq("product_id", product.id);
+
+if (sizes && sizes.length > 0) {
+  sizesBox.innerHTML = `
+    <div class="sizes-section">
+      <h4>Select Size</h4>
+      <div class="sizes-container">
+        ${sizes.map(size => `
+          <div class="size-pill ${!size.in_stock ? "out" : ""}">
+            ${size.size_name}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
 
   // Set social links safely
   document.querySelector(".instagram").setAttribute("href", BUY_LINKS.instagram);
@@ -331,6 +354,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
