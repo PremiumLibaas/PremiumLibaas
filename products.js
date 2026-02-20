@@ -403,9 +403,7 @@ const sizeGuideBtn = document.getElementById("sizeGuideBtn");
 const sizeGuideModal = document.getElementById("sizeGuideModal");
 const closeSizeGuide = document.getElementById("closeSizeGuide");
 
-const sizeGuideSlider = document.getElementById("sizeGuideSlider");
-const sizeGuidePrev = document.getElementById("sizeGuidePrev");
-const sizeGuideNext = document.getElementById("sizeGuideNext");
+
 
 // ✅ Put your size-guide image URLs here
 // Use the raw github links or Supabase storage public links
@@ -481,6 +479,7 @@ sizeGuideSlider?.addEventListener("touchend", (e) => {
 
   updateGuideSlide();
 });
+
 
 
 
