@@ -395,6 +395,92 @@ slider.addEventListener("touchend", e => {
   updateSlide();
 });
 
+/* =========================
+   SIZE GUIDE POPUP
+========================= */
+
+const sizeGuideBtn = document.getElementById("sizeGuideBtn");
+const sizeGuideModal = document.getElementById("sizeGuideModal");
+const closeSizeGuide = document.getElementById("closeSizeGuide");
+
+const sizeGuideSlider = document.getElementById("sizeGuideSlider");
+const sizeGuidePrev = document.getElementById("sizeGuidePrev");
+const sizeGuideNext = document.getElementById("sizeGuideNext");
+
+// ✅ Put your size-guide image URLs here
+// Use the raw github links or Supabase storage public links
+const SIZE_GUIDE_IMAGES = [
+  "https://github.com/PremiumLibaas/PremiumLibaas/blob/main/size_chart_combined.png?raw=true"
+];
+
+let guideIndex = 0;
+let guideStartX = 0;
+
+function openSizeGuide() {
+  sizeGuideSlider.innerHTML = "";
+
+  SIZE_GUIDE_IMAGES.forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    sizeGuideSlider.appendChild(img);
+  });
+
+  guideIndex = 0;
+  updateGuideSlide();
+
+  sizeGuideModal.style.display = "flex";
+}
+
+function closeSizeGuideModal() {
+  sizeGuideModal.style.display = "none";
+}
+
+function updateGuideSlide() {
+  sizeGuideSlider.style.transform = `translateX(-${guideIndex * 100}%)`;
+}
+
+// open
+sizeGuideBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  openSizeGuide();
+});
+
+// close (X)
+closeSizeGuide?.addEventListener("click", closeSizeGuideModal);
+
+// close (click outside)
+sizeGuideModal?.addEventListener("click", (e) => {
+  if (e.target === sizeGuideModal) closeSizeGuideModal();
+});
+
+// arrows
+sizeGuidePrev?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (sizeGuideSlider.children.length <= 1) return;
+  guideIndex = (guideIndex - 1 + sizeGuideSlider.children.length) % sizeGuideSlider.children.length;
+  updateGuideSlide();
+});
+
+sizeGuideNext?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (sizeGuideSlider.children.length <= 1) return;
+  guideIndex = (guideIndex + 1) % sizeGuideSlider.children.length;
+  updateGuideSlide();
+});
+
+// swipe (mobile)
+sizeGuideSlider?.addEventListener("touchstart", (e) => {
+  guideStartX = e.touches[0].clientX;
+});
+
+sizeGuideSlider?.addEventListener("touchend", (e) => {
+  const diff = guideStartX - e.changedTouches[0].clientX;
+
+  if (diff > 50 && guideIndex < sizeGuideSlider.children.length - 1) guideIndex++;
+  if (diff < -50 && guideIndex > 0) guideIndex--;
+
+  updateGuideSlide();
+});
 
 
 
