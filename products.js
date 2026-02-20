@@ -252,6 +252,29 @@ if (sizes && sizes.length > 0) {
       </div>
     </div>
   `;
+
+   /* SIZE SELECTOR LOGIC */
+let selectedSize = null;
+
+sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
+  pill.addEventListener("click", () => {
+
+    // if clicking the same one → unselect
+    if (pill.classList.contains("selected")) {
+      pill.classList.remove("selected");
+      selectedSize = null;
+      return;
+    }
+
+    // remove from others
+    sizesBox.querySelectorAll(".size-pill").forEach(p => p.classList.remove("selected"));
+
+    // select this
+    pill.classList.add("selected");
+    selectedSize = pill.innerText;
+  });
+});
+
 }
 
   // Set social links safely
@@ -354,6 +377,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
