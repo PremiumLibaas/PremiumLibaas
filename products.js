@@ -232,6 +232,7 @@ grid.addEventListener("click", async e => {
 
   loadImages(currentImages);
   modalTitle.innerText = product.title;
+  selectedSizes.clear();
   /* LOAD SIZES */
 const sizesBox = document.getElementById("sizesContainer");
 sizesBox.innerHTML = "";
@@ -247,7 +248,9 @@ if (sizes && sizes.length > 0) {
       <h4>Select Size</h4>
       <div class="sizes-container">
         ${sizes.map(size => `
-          <div class="size-pill ${!size.in_stock ? "out" : ""}">
+          <div class="size-pill ${!size.in_stock ? "out" : ""}" data-size="${size.size_name}">
+  ${size.size_name}
+</div>
             ${size.size_name}
           </div>
         `).join("")}
@@ -378,6 +381,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
