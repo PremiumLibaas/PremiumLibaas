@@ -356,6 +356,16 @@ function loadImages(images) {
 
 function updateSlide() {
   slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  // FIX ARROWS VISIBILITY
+  if (currentImages.length <= 1) {
+    prevArrow.style.display = "none";
+    nextArrow.style.display = "none";
+    return;
+  }
+
+  prevArrow.style.display = currentIndex === 0 ? "none" : "block";
+  nextArrow.style.display = currentIndex === currentImages.length - 1 ? "none" : "block";
 }
 
 /* TOUCH SWIPE */
@@ -376,6 +386,7 @@ slider.addEventListener("touchend", e => {
 
   updateSlide();
 });
+
 
 
 
