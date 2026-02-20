@@ -5,96 +5,601 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="/PremiumLibaas/">
 
+<!-- SEO (LEFT AS IS) -->
+<meta name="robots" content="index, follow">
+<meta name="description" content="Premium Libaas – Luxury Islamic Wear. Crafted Elegance • Timeless Modesty. Shop premium thobes and abayahs.">
+
 <title>Premium Libaas</title>
 
+<!-- FAVICON (LEFT AS IS) -->
+<link rel="icon" href="https://image2url.com/r2/default/images/1767212882750-6ba84a5b-f3eb-4684-9ad8-e0ac463603e3.ico" sizes="32x32">
+
+<!-- GOOGLE FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===== GENERAL ===== */
-body{
-  font-family:Inter, sans-serif;
-  background:linear-gradient(180deg,#12131a,#1b1d2b);
-  color:#f1f1f1;
-  margin:0;
+/* OUT OF STOCK STYLING */
+.card.out-of-stock {
+  opacity: 0.45;
+  filter: grayscale(100%);
+  pointer-events: none;
 }
 
-/* ===== PRODUCTS ===== */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;padding:60px}
-.card{background:#fff;border-radius:22px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
-.card img{width:100%;height:380px;object-fit:contain}
-.card .info{padding:25px;background:linear-gradient(180deg,#1b1d2b,#141520);text-align:center}
-.card h3{font-family:'Playfair Display';color:#fff;margin:0}
-.card span{color:#caa85c;display:block;margin-top:6px}
+.stock-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 600;
+  background: #555;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
 
-/* ===== MODAL ===== */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);justify-content:center;align-items:center;z-index:3000}
-.modal-content{background:#12131a;width:90%;max-width:950px;border-radius:24px;display:flex;overflow:hidden;position:relative}
 
-/* IMAGE SIDE */
-.modal-img-container{width:50%;height:550px;background:#fff;overflow:hidden;position:relative}
-.modal-slider{display:flex;width:100%;height:100%;transition:transform .4s cubic-bezier(.22,.61,.36,1)}
-.modal-slider img{min-width:100%;height:100%;object-fit:contain}
 
-/* ARROWS */
-.arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;background:rgba(0,0,0,.5);padding:8px;border-radius:50%;cursor:pointer}
-.arrow-left{left:10px}
-.arrow-right{right:10px}
 
-/* DETAILS */
-.modal-details{width:50%;padding:40px;overflow-y:auto}
+/* PRODUCT TEXT STACKING */
+.card .info h3 { margin-bottom: 6px; }
 
+.card .info span {
+    display: block;
+    font-size: 0.95em;
+    color: #caa85c;
+    margin-top: 4px;
+}
+
+/* OLD PRICE */
+.card .old-price {
+    text-decoration: line-through;
+    font-size: 0.9em;
+    margin-top: 6px;
+}
+
+/* CURRENT PRICE */
+.card .price {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #d4b86a;
+    margin-top: 8px;
+}
+
+/* ===== FIX: CLICK BUG (SAFE) ===== */
+.card { pointer-events: auto; }
+
+.card img { pointer-events: none; }
+
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, #12131a, #1b1d2b);
+    color: #f1f1f1;
+}
+
+/* HEADER */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(18,19,26,0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 50px;
+    border-bottom: 1px solid rgba(202,168,92,0.15);
+}
+
+.logo img {
+    height: 90px;
+    transform: scale(1.5);
+}
+
+nav { position: relative; }
+
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #eaeaea;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+nav a:hover { color: #caa85c; }
+
+/* CONTACT DROPDOWN */
+.contact-dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: linear-gradient(180deg, #1b1d2b, #141520);
+    border-radius: 12px;
+    padding: 10px 0;
+    min-width: 180px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.contact-dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #eaeaea;
+    text-decoration: none;
+}
+
+.contact-dropdown a:hover {
+    background: rgba(202,168,92,0.2);
+    color: #caa85c;
+}
+
+/* HERO */
+.hero {
+    min-height: 90vh;
+    background: linear-gradient(rgba(18,19,26,0.6), rgba(18,19,26,0.85)), url('hero.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.8em;
+    margin-bottom: 20px;
+}
+
+.hero p { opacity: 0.9; }
+
+.hero button {
+    margin-top: 35px;
+    padding: 15px 45px;
+    border-radius: 40px;
+    border: none;
+    background: linear-gradient(135deg, #d4b86a, #b7964f);
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s;
+}
+
+.hero button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(202,168,92,0.4);
+}
+
+/* SECTION */
+section {
+    padding: 90px 60px;
+    max-width: 1500px;
+    margin: auto;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* FILTERS */
+.filters {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.filters button {
+    background: transparent;
+    border: 1px solid rgba(202,168,92,0.6);
+    color: #caa85c;
+    padding: 12px 28px;
+    margin: 6px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+}
+
+.filters button.active,
+.filters button:hover {
+    background: linear-gradient(135deg, #d4b86a, #b7964f);
+    color: #111;
+}
+
+/* PRODUCTS */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 22px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .4s, box-shadow .4s;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 60px rgba(0,0,0,.5);
+}
+
+.card img {
+    width: 100%;
+    height: 380px;
+    object-fit: contain;
+}
+
+.card .info {
+    padding: 25px;
+    text-align: center;
+    background: linear-gradient(180deg, #1b1d2b, #141520);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    flex-grow: 1;   /* THIS FIXES IT */
+}
+
+
+
+.card h3 {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+}
+
+
+.card span {
+    display: block;
+    color: #caa85c;
+    margin-top: 6px;
+}
+
+
+
+.card .product-id {
+    color: #8a8a8a !important;
+    font-size: 0.6em !important;
+    opacity: 0.6;
+    letter-spacing: 0.4px;
+}
+
+/* SALE BADGE */
+.card.on-sale::after {
+    content: "ON SALE";
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: linear-gradient(135deg, #d4b86a, #b7964f);
+    color: #111;
+    font-size: .7em;
+    padding: 8px 14px;
+    border-radius: 30px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: linear-gradient(180deg, #1b1d2b, #12131a);
+    max-width: 950px;
+    width: 90%;
+    border-radius: 24px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-img-container {
+    width: 50%; 
+    height: 550px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.modal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* SLIDER (FINAL) */
+.modal-slider {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(.22,.61,.36,1);
+  z-index: 1; /* slider is under arrows */
+}
+
+.modal-slider img {
+  min-width: 100%;
+  height: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    color: #d4b86a;
+    cursor: pointer;
+    background: rgba(27,29,43,.6);
+    border-radius: 50%;
+    padding: 8px;
+    display: none;
+  
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.arrow-left { left: 10px; }
+.arrow-right { right: 10px; }
+
+.modal-details {
+    width: 50%;
+    padding: 45px;
+}
+
+.modal-details h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 20px;
+}
+
+.modal-details a {
+    display: block;
+    margin-bottom: 15px;
+    padding: 14px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+}
+
+.instagram { background: #c13584; color: #fff; }
+.tiktok { background: #010101; color: #fff; }
+.facebook { background: #1877f2; color: #fff; }
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    background: white;
+    color: black;
+    border-radius: 50%;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5000; /* IMPORTANT */
+}
+
+
+/* FOOTER */
+footer {
+    background: #0d0e16;
+    text-align: center;
+    padding: 40px;
+    opacity: .8;
+}
+.card span.old-price {
+    color: #8a8a8a !important;
+    text-decoration: line-through;
+}
+/* ===== MOBILE MODAL FIX ===== */
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+    max-height: 90vh;
+  }
+
+.modal-img-container {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+  position: relative; /* REQUIRED for X layering */
+  background: #ffffff;
+}
+
+
+.modal img {
+  width: 100%;
+  height: 100%;
+  max-height: 60vh;
+  object-fit: cover; /* fills the area */
+  border-radius: 0; /* let container handle curves */
+  display: block;
+}
+
+
+  .modal-details {
+    width: 100%;
+    padding: 25px 25px 35px;
+  }
+
+  .arrow {
+  display: block;
+}
+
+}
+
+.product-id {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.65em;      /* small */
+  color: #8a8a8a;         /* grey */
+  opacity:0.4;           /* soft look */
+  letter-spacing: 0.5px;  /* clean spacing */
+}
+
+.filters button:hover,
+.modal-details a:hover,
+.hero button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(202,168,92,0.3);
+}
 /* SIZES */
-.sizes-section{margin:20px 0}
-.sizes-container{display:flex;flex-wrap:wrap;gap:10px}
-.size-pill{padding:8px 14px;border:1px solid #caa85c;border-radius:20px;cursor:pointer}
-.size-pill.out{opacity:.4;text-decoration:line-through;cursor:not-allowed}
 
-/* MOBILE */
-@media(max-width:768px){
-.modal-content{flex-direction:column}
-.modal-img-container{width:100%;height:60vh}
-.modal-details{width:100%}
+.sizes-section {
+  margin: 20px 0;
 }
 
-.close{position:absolute;top:12px;right:12px;background:#fff;color:#000;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer}
+.sizes-section h4 {
+  margin-bottom: 10px;
+  color: #caa85c;
+}
 
+.sizes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.size-pill {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #caa85c;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.size-pill:hover {
+  background: #caa85c;
+  color: #111;
+}
+
+.size-pill.out {
+  opacity: 0.4;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+.size-pill.selected {
+  background: #caa85c;
+  color: #111;
+}
 </style>
 </head>
 
 <body>
 
-<div class="grid" id="productGrid"></div>
+<header>
+    <div class="logo"><img src="logo.png"></div>
+    <nav>
+        <a href="#catalogue">Shop</a>
+        <a id="contactBtn">Contact ▼</a>
+        <div class="contact-dropdown" id="contactDropdown">
+            <a href="mailto:premiumlibaas@gmail.com">Email</a>
+            <a href="https://instagram.com/premium_libaas" target="_blank">Instagram</a>
+            <a href="https://www.tiktok.com/@premium_libaas" target="_blank">TikTok</a>
+            <a href="https://www.facebook.com/profile.php?id=61585372481020" target="_blank">Facebook</a>
+        </div>
+    </nav>
+</header>
 
-<!-- MODAL -->
+<section class="hero">
+    <div>
+        <h1>Luxury Islamic Wear</h1>
+        <p>Crafted Elegance • Timeless Modesty</p>
+        <button onclick="document.getElementById('catalogue').scrollIntoView()">Browse All Products</button>
+    </div>
+</section>
+
+<section id="catalogue">
+    <h2>Our Collection</h2>
+
+<div class="filters" id="filterBar"></div>
+<div class="filters" id="subFilterBar" style="display:none;"></div>
+
+
+    <div class="grid" id="productGrid"></div>
+</section>
+
 <div class="modal" id="modal">
-  <div class="modal-content">
+    <div class="modal-content">
+        <div class="close" onclick="closeModal()">×</div>
 
-    <div class="close" onclick="closeModal()">×</div>
+        <div class="modal-img-container">
+            <div class="arrow arrow-left" id="prevArrow">&#10094;</div>
+            <div class="modal-slider" id="modalSlider"></div>
+            <div class="arrow arrow-right" id="nextArrow">&#10095;</div>
+        </div>
 
-    <div class="modal-img-container">
-      <div class="arrow arrow-left" id="prevArrow">&#10094;</div>
-      <div class="modal-slider" id="modalSlider"></div>
-      <div class="arrow arrow-right" id="nextArrow">&#10095;</div>
-    </div>
+        <div class="modal-details">
+    <h3 id="modalTitle"></h3>
 
-    <div class="modal-details">
-      <h3 id="modalTitle"></h3>
-
-      <div class="sizes-section">
-        <h4>Available Sizes</h4>
-        <div class="sizes-container" id="sizesContainer"></div>
-      </div>
-
-      <a class="instagram" target="_blank">Buy via Instagram</a><br>
-      <a class="tiktok" target="_blank">Buy via TikTok</a><br>
-      <a class="facebook" target="_blank">Buy via Facebook</a>
-
-    </div>
-
-  </div>
+    <!-- ADD THIS LINE -->
+    <div class="sizes-section" id="sizesSection" style="display:none;">
+  <h4>Sizes</h4>
+  <div class="sizes-container" id="sizesContainer"></div>
 </div>
 
+    <a class="instagram" target="_blank">Buy via Instagram</a>
+    <a class="tiktok" target="_blank">Buy via TikTok</a>
+    <a class="facebook" target="_blank">Buy via Facebook</a>
+</div>
+    </div>
+</div>
+
+<footer>© 2025 Premium Libaas</footer>
+
 <script type="module" src="products.js"></script>
+
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
