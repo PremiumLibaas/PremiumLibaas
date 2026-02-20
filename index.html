@@ -507,9 +507,14 @@ footer {
   font-weight: 500;
 }
 
-.size-pill:hover {
-  background: #caa85c;
-  color: #111;
+.size-pill:not(.out):hover {
+  border-color: #d4b86a;
+  cursor: pointer;
+}
+
+.size-pill.out:hover {
+  border-color: #444;
+  cursor: not-allowed;
 }
 
 .size-pill.selected {
@@ -588,6 +593,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
