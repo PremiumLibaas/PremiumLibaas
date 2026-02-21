@@ -60,7 +60,8 @@ const requestSizesContainer = document.getElementById("requestSizesContainer");
 const requestClearBtn = document.getElementById("requestClearBtn");
 const requestDoneBtn = document.getElementById("requestDoneBtn");
 const requestSelectedText = document.getElementById("requestSelectedText");
-
+const sizeQtySection = document.getElementById("sizeQtySection");
+const sizeQtyList = document.getElementById("sizeQtyList");
 /* =========================
    LOAD PRODUCTS
 ========================= */
@@ -243,7 +244,7 @@ allBtn.onclick = () => {
 let currentImages = [];
 let currentIndex = 0;
 let currentProduct = null;
-let selectedSizes = new Set();   // in-stock selected sizes
+let selectedSizes = new Map(); // sizeName -> qty
 let requestedSizes = new Set();   // requested sizes
 
 // requestedSizes already exists in your code
@@ -287,6 +288,61 @@ function updateRequestedText() {
     : "Selected: none";
 }
 
+function setSizeQty(sizeName, qty) {
+  const q = Math.max(1, Number(qty || 1));
+  selectedSizes.set(sizeName, q);
+  renderSizeQtyUI();
+}
+
+function removeSize(sizeName) {
+  selectedSizes.delete(sizeName);
+  renderSizeQtyUI();
+}
+
+function renderSizeQtyUI() {
+  if (!sizeQtySection || !sizeQtyList) return;
+
+  const entries = [...selectedSizes.entries()]; // [ [size, qty], ... ]
+  if (entries.length === 0) {
+    sizeQtySection.style.display = "none";
+    sizeQtyList.innerHTML = "";
+    return;
+  }
+
+  sizeQtySection.style.display = "block";
+  sizeQtyList.innerHTML = entries.map(([size, qty]) => `
+    <div class="sizeqty-row" data-size="${size}">
+      <div class="sizeqty-size">${size}</div>
+      <div class="sizeqty-controls">
+        <button class="sizeqty-btn minus" type="button">−</button>
+        <div class="sizeqty-value">${qty}</div>
+        <button class="sizeqty-btn plus" type="button">+</button>
+      </div>
+    </div>
+  `).join("");
+
+  // attach button handlers
+  sizeQtyList.querySelectorAll(".sizeqty-row").forEach(row => {
+    const size = row.dataset.size;
+    const minus = row.querySelector(".minus");
+    const plus = row.querySelector(".plus");
+
+    minus.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const cur = selectedSizes.get(size) || 1;
+      setSizeQty(size, Math.max(1, cur - 1));
+    });
+
+    plus.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const cur = selectedSizes.get(size) || 1;
+      setSizeQty(size, cur + 1);
+    });
+  });
+}
+
 grid.addEventListener("click", async e => {
   const card = e.target.closest(".card");
   if (!card) return;
@@ -295,7 +351,8 @@ grid.addEventListener("click", async e => {
   if (!product) return;
 
   currentProduct = product;
-  selectedSizes = new Set();
+  selectedSizes = new Map();
+  renderSizeQtyUI();
   requestedSizes = new Set();
   // ✅ optional: reset quantity each time modal opens
   const qtyEl = document.getElementById("orderQty");
@@ -335,14 +392,15 @@ if (sizes && sizes.length > 0) {
 
 sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   pill.addEventListener("click", () => {
-    const val = pill.innerText.trim();
+    const sizeName = pill.innerText.trim();
 
+    // toggle select
     if (pill.classList.contains("selected")) {
       pill.classList.remove("selected");
-      selectedSizes.delete(val);
+      removeSize(sizeName);
     } else {
       pill.classList.add("selected");
-      selectedSizes.add(val);
+      setSizeQty(sizeName, 1); // default qty 1 for that size
     }
   });
 });
@@ -552,9 +610,12 @@ function getBuyerInfo() {
 }
 
 function buildOrderMessage(platformName = "") {
-  const { name, phone, email, address, qty } = getBuyerInfo();
+  const { name, phone, email, address } = getBuyerInfo();
 
-  const selected = [...selectedSizes];
+  const selectedEntries = [...selectedSizes.entries()]; // size -> qty
+  const selectedLine = selectedEntries.length
+  ? selectedEntries.map(([s, q]) => `${s} x${q}`).join(", ")
+  : "None selected";
   const requested = [...requestedSizes];
 
   const productName = currentProduct?.title || "";
@@ -568,8 +629,7 @@ function buildOrderMessage(platformName = "") {
     "",
     `Product: ${productName}${subtitle ? ` (${subtitle})` : ""}`,
     `Product ID: ${productId}`,
-    `Quantity: ${qty}`,
-    `Selected size(s): ${selected.length ? selected.join(", ") : "None selected"}`,
+    `Selected size(s): ${selectedLine}`,
     `Requested size(s): ${requested.length ? requested.join(", ") : "None"}`,
     "",
     "Customer details:",
@@ -653,6 +713,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
