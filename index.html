@@ -599,6 +599,75 @@ footer {
   }
 
 }
+
+/* ===== REQUEST SIZE ===== */
+.request-size-btn{
+  width: 100%;
+  margin: 12px 0 0;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(202,168,92,0.6);
+  background: transparent;
+  color: #caa85c;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.request-size-btn:hover{
+  background: linear-gradient(135deg, #d4b86a, #b7964f);
+  color: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(202,168,92,0.3);
+}
+
+.request-sizes-box{
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(202,168,92,0.18);
+  background: rgba(0,0,0,0.15);
+}
+
+.request-sizes-box h4{
+  margin-bottom: 10px;
+  color: #caa85c;
+}
+
+.request-actions{
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.request-mini-btn{
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(202,168,92,0.6);
+  background: transparent;
+  color: #caa85c;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.request-mini-btn.primary{
+  background: linear-gradient(135deg, #d4b86a, #b7964f);
+  color: #111;
+  border-color: transparent;
+}
+
+.request-mini-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(202,168,92,0.18);
+}
+
+.request-selected-text{
+  margin-top: 10px;
+  font-size: 0.9em;
+  opacity: 0.9;
+}
   
 </style>
 </head>
@@ -649,12 +718,31 @@ footer {
         </div>
 
         <div class="modal-details">
-            <h3 id="modalTitle"></h3>
-            <div id="sizesContainer"></div>
-            <a class="instagram" target="_blank">Buy via Instagram</a>
-            <a class="tiktok" target="_blank">Buy via TikTok</a>
-            <a class="facebook" target="_blank">Buy via Facebook</a>
-        </div>
+  <h3 id="modalTitle"></h3>
+
+  <div id="sizesContainer"></div>
+
+  <!-- ✅ REQUEST A SIZE -->
+  <button id="requestSizeBtn" class="request-size-btn" type="button">
+    Request a size
+  </button>
+
+  <div id="requestSizesBox" class="request-sizes-box" style="display:none;">
+    <h4>Request sizes</h4>
+    <div id="requestSizesContainer" class="sizes-container"></div>
+
+    <div class="request-actions">
+      <button id="requestClearBtn" class="request-mini-btn" type="button">Clear</button>
+      <button id="requestDoneBtn" class="request-mini-btn primary" type="button">Done</button>
+    </div>
+
+    <div id="requestSelectedText" class="request-selected-text"></div>
+  </div>
+
+  <a class="instagram" target="_blank">Buy via Instagram</a>
+  <a class="tiktok" target="_blank">Buy via TikTok</a>
+  <a class="facebook" target="_blank">Buy via Facebook</a>
+</div>
     </div>
 </div>
 
@@ -678,6 +766,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
