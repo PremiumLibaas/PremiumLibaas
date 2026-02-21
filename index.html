@@ -133,6 +133,12 @@ body {
     color: #f1f1f1;
 }
 
+/* ✅ LOCK BACKGROUND SCROLL WHEN MODAL IS OPEN */
+body.modal-open {
+  overflow: hidden;
+  height: 100%;
+}
+  
 /* HEADER */
 header {
     position: sticky;
@@ -415,6 +421,9 @@ h2 {
 .modal-details {
     width: 50%;
     padding: 45px;
+
+    overflow-y: auto;   /* ✅ scroll details if long */
+    max-height: 550px;  /* ✅ match image height */
 }
 
 .modal-details h3 {
@@ -774,6 +783,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
