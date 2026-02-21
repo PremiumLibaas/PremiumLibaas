@@ -19,6 +19,12 @@ const BUY_LINKS = {
   facebook: "https://www.facebook.com/profile.php?id=61585372481020"
 };
 
+function formatGBP(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "";
+  return `£${n.toFixed(2)}`;
+}
+
 /* =========================
    STATE
 ========================= */
@@ -434,6 +440,7 @@ closeSizeGuide.addEventListener("click", () => {
 sizeGuideModal.addEventListener("click", (e) => {
   if (e.target === sizeGuideModal) sizeGuideModal.style.display = "none";
 });
+
 
 
 
