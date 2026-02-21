@@ -26,6 +26,15 @@ function formatGBP(value) {
 }
 
 /* =========================
+   REQUEST SIZE: FULL SIZE LIST
+========================= */
+
+/* ✅ Replace this list with YOUR exact sizes (50M, 54XL etc) */
+const ALL_REQUEST_SIZES = [
+  "50M","50L","50XL","52M","52L","52XL","54M","54L","54XL","54XXL","56M","56L","56XL","56XXL","58L","58XL","60XXL","62XXXL","64XXL","64XXXXL"
+];
+
+/* =========================
    STATE
 ========================= */
 
@@ -44,6 +53,12 @@ const nextArrow = document.getElementById("nextArrow");
 const filterBar = document.getElementById("filterBar");
 const subFilterBar = document.getElementById("subFilterBar");
 const closeBtn = document.querySelector(".close");
+const requestSizeBtn = document.getElementById("requestSizeBtn");
+const requestSizesBox = document.getElementById("requestSizesBox");
+const requestSizesContainer = document.getElementById("requestSizesContainer");
+const requestClearBtn = document.getElementById("requestClearBtn");
+const requestDoneBtn = document.getElementById("requestDoneBtn");
+const requestSelectedText = document.getElementById("requestSelectedText");
 
 /* =========================
    LOAD PRODUCTS
@@ -227,6 +242,47 @@ allBtn.onclick = () => {
 let currentImages = [];
 let currentIndex = 0;
 
+/* =========================
+   REQUEST SIZE LOGIC
+========================= */
+
+let requestedSizes = new Set();
+
+function renderRequestSizes() {
+  requestSizesContainer.innerHTML = "";
+
+  ALL_REQUEST_SIZES.forEach(sz => {
+    const pill = document.createElement("div");
+    pill.className = "size-pill"; // uses your existing pill style
+    pill.textContent = sz;
+
+    if (requestedSizes.has(sz)) pill.classList.add("selected");
+
+    pill.addEventListener("click", () => {
+      if (pill.classList.contains("selected")) {
+        pill.classList.remove("selected");
+        requestedSizes.delete(sz);
+      } else {
+        pill.classList.add("selected");
+        requestedSizes.add(sz);
+      }
+
+      updateRequestedText();
+    });
+
+    requestSizesContainer.appendChild(pill);
+  });
+
+  updateRequestedText();
+}
+
+function updateRequestedText() {
+  const arr = [...requestedSizes];
+  requestSelectedText.textContent = arr.length
+    ? `Selected: ${arr.join(", ")}`
+    : "Selected: none";
+}
+
 grid.addEventListener("click", async e => {
   const card = e.target.closest(".card");
   if (!card) return;
@@ -293,7 +349,11 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   // Show/hide arrows depending on image count
   prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
   nextArrow.style.display = currentImages.length > 1 ? "block" : "none";
-
+    // ✅ reset request-size UI every time modal opens
+  requestedSizes = new Set();
+  requestSizesBox.style.display = "none";
+  requestSelectedText.textContent = "";
+  renderRequestSizes();
   modal.style.display = "flex";
 });
 
@@ -444,6 +504,30 @@ sizeGuideModal.addEventListener("click", (e) => {
   if (e.target === sizeGuideModal) sizeGuideModal.style.display = "none";
 });
 
+/* =========================
+   REQUEST SIZE BUTTON EVENTS
+========================= */
+
+requestSizeBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const isOpen = requestSizesBox.style.display === "block";
+  requestSizesBox.style.display = isOpen ? "none" : "block";
+
+  if (!isOpen) renderRequestSizes();
+});
+
+requestClearBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  requestedSizes.clear();
+  renderRequestSizes();
+});
+
+requestDoneBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  requestSizesBox.style.display = "none";
+});
 
 
 
