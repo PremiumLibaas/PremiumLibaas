@@ -483,37 +483,36 @@ footer {
   .modal-content {
     flex-direction: column;
     max-height: 90vh;
+    overflow: hidden;      /* ✅ important */
   }
 
-.modal-img-container {
-  width: 100%;
-  padding: 0;
-  overflow: hidden;
-  border-radius: 18px 18px 0 0;
-  position: relative; /* REQUIRED for X layering */
-  background: #ffffff;
-}
+  .modal-img-container {
+    width: 100%;
+    height: 58vh;          /* ✅ big image area */
+    overflow: hidden;
+    border-radius: 18px 18px 0 0;
+    position: relative;
+    background: #ffffff;
+    flex: 0 0 auto;
+  }
 
-
-.modal img {
-  width: 100%;
-  height: 100%;
-  max-height: 60vh;
-  object-fit: cover; /* fills the area */
-  border-radius: 0; /* let container handle curves */
-  display: block;
-}
-
+  .modal-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* ✅ NO CUT-OFF */
+  }
 
   .modal-details {
     width: 100%;
-    padding: 25px 25px 35px;
+    padding: 22px 22px 30px;
+    overflow-y: auto;      /* ✅ scroll here */
+    flex: 1 1 auto;
+    min-height: 0;         /* ✅ allows scrolling properly */
   }
 
   .arrow {
-  display: block;
-}
-
+    display: block;
+  }
 }
 
 .product-id {
@@ -783,6 +782,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
