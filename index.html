@@ -485,8 +485,9 @@ footer {
 @media (max-width: 768px) {
   .modal-content {
     flex-direction: column;
-    max-height: 90vh;
-    overflow: hidden;      /* ✅ important */
+  max-height: 90vh;
+  overflow-y: auto;     /* ✅ whole card scrolls */
+  overflow-x: hidden;      /* ✅ important */
   }
 
   .modal-img-container {
@@ -507,10 +508,8 @@ footer {
 
   .modal-details {
     width: 100%;
-    padding: 22px 22px 30px;
-    overflow-y: auto;      /* ✅ scroll here */
-    flex: 1 1 auto;
-    min-height: 0;         /* ✅ allows scrolling properly */
+  padding: 22px 22px 30px;
+  overflow: visible;         /* ✅ allows scrolling properly */
   }
 
   .arrow {
@@ -786,6 +785,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
