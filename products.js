@@ -245,6 +245,7 @@ let currentIndex = 0;
 let currentProduct = null;
 let selectedSizes = new Set();   // in-stock selected sizes
 let requestedSizes = new Set();   // requested sizes
+
 // requestedSizes already exists in your code
 /* =========================
    REQUEST SIZE LOGIC
@@ -296,6 +297,9 @@ grid.addEventListener("click", async e => {
   currentProduct = product;
   selectedSizes = new Set();
   requestedSizes = new Set();
+  // ✅ optional: reset quantity each time modal opens
+  const qtyEl = document.getElementById("orderQty");
+  if (qtyEl) qtyEl.value = 1;
 
   currentImages = [product.main_image, ...(product.extra_images || [])];
   currentIndex = 0;
@@ -649,6 +653,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
