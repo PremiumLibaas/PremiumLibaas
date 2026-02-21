@@ -242,7 +242,9 @@ allBtn.onclick = () => {
 
 let currentImages = [];
 let currentIndex = 0;
-
+let currentProduct = null;
+let selectedSizes = new Set();   // in-stock selected sizes
+// requestedSizes already exists in your code
 /* =========================
    REQUEST SIZE LOGIC
 ========================= */
@@ -290,6 +292,10 @@ grid.addEventListener("click", async e => {
 
   const product = products.find(p => String(p.id) === card.dataset.id);
   if (!product) return;
+
+  currentProduct = product;
+  selectedSizes = new Set();
+  requestedSizes = new Set();
 
   currentImages = [product.main_image, ...(product.extra_images || [])];
   currentIndex = 0;
@@ -533,6 +539,7 @@ requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
 });
+
 
 
 
