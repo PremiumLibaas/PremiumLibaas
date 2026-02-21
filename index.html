@@ -583,6 +583,79 @@ footer {
   cursor: not-allowed;
 }
 
+/* ===== SIZE QTY (OPTION C) ===== */
+.sizeqty-section{
+  margin: 14px 0 18px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(202,168,92,0.18);
+  background: rgba(0,0,0,0.12);
+}
+
+.sizeqty-section h4{
+  margin-bottom: 10px;
+  color: #caa85c;
+}
+
+.sizeqty-list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sizeqty-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(202,168,92,0.20);
+  background: rgba(0,0,0,0.12);
+}
+
+.sizeqty-size{
+  font-weight: 700;
+  color: #fff;
+  min-width: 70px;
+}
+
+.sizeqty-controls{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sizeqty-btn{
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(202,168,92,0.6);
+  background: transparent;
+  color: #caa85c;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.sizeqty-btn:hover{
+  background: linear-gradient(135deg, #d4b86a, #b7964f);
+  color: #111;
+  border-color: transparent;
+}
+
+.sizeqty-value{
+  min-width: 26px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+}
+
+.sizeqty-hint{
+  margin-top: 10px;
+  font-size: 0.9em;
+  opacity: 0.85;
+}
+  
 /* ===== SPACE BETWEEN REQUEST & BUY BUTTONS ===== */
 .modal-divider{
   height: 1px;
@@ -787,6 +860,12 @@ footer {
   <h3 id="modalTitle"></h3>
 
   <div id="sizesContainer"></div>
+  <!-- ✅ QUANTITY PER SIZE (AUTO BUILDS WHEN SIZES ARE SELECTED) -->
+<div id="sizeQtySection" class="sizeqty-section" style="display:none;">
+  <h4>Quantity per size</h4>
+  <div id="sizeQtyList" class="sizeqty-list"></div>
+  <div class="sizeqty-hint">Use + / − to set quantity for each selected size.</div>
+</div>
 
 
   
@@ -815,7 +894,7 @@ footer {
     <input id="buyerName" class="buyer-input" type="text" placeholder="Full name">
     <input id="buyerPhone" class="buyer-input" type="tel" placeholder="Phone number">
     <input id="buyerEmail" class="buyer-input" type="email" placeholder="Email (optional)">
-    <input id="orderQty" class="buyer-input" type="number" min="1" value="1" placeholder="Quantity">
+    
   </div>
 
   <textarea id="buyerAddress" class="buyer-textarea" rows="3" placeholder="Delivery address"></textarea>
@@ -852,6 +931,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
