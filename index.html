@@ -361,13 +361,18 @@ h2 {
     width: 90%;
     border-radius: 24px;
     display: flex;
-    overflow: hidden;
     position: relative;
+
+    max-height: 90vh;     /* ✅ modal card height */
+    overflow-y: auto;     /* ✅ whole modal scrolls */
+    overflow-x: hidden;
 }
 
 .modal-img-container {
     width: 50%;
-    height: 550px;
+    height: 70vh;
+    max-height: 550px;
+    min-height: 420px;
     position: relative;
     display: flex;
     align-items: center;
@@ -421,9 +426,6 @@ h2 {
 .modal-details {
     width: 50%;
     padding: 45px;
-
-    overflow-y: auto;   /* ✅ scroll details if long */
-    max-height: 550px;  /* ✅ match image height */
 }
 
 .modal-details h3 {
@@ -784,6 +786,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
