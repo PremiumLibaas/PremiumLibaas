@@ -84,23 +84,26 @@ function renderProducts(list) {
       card.classList.add("out-of-stock");
     }
 
-    /* SALE BADGE */
-    if (product.old_price && product.old_price > product.price) {
-      card.classList.add("on-sale");
-    }
+    // convert to numbers once
+const priceNum = Number(product.price);
+const oldNum = Number(product.old_price);
 
-    /* PRICE DISPLAY */
-    let priceHTML = product.price != null
-  ? `<span class="price">£${product.price}</span>`
+/* SALE BADGE */
+if (Number.isFinite(oldNum) && Number.isFinite(priceNum) && oldNum > priceNum) {
+  card.classList.add("on-sale");
+}
+
+/* PRICE DISPLAY */
+let priceHTML = Number.isFinite(priceNum)
+  ? `<span class="price">${formatGBP(priceNum)}</span>`
   : "";
 
-
-    if (product.old_price && product.old_price > product.price) {
-      priceHTML = `
-        <span class="old-price">£${product.old_price}</span>
-        <span class="price">£${product.price}</span>
-      `;
-    }
+if (Number.isFinite(oldNum) && Number.isFinite(priceNum) && oldNum > priceNum) {
+  priceHTML = `
+    <span class="old-price">${formatGBP(oldNum)}</span>
+    <span class="price">${formatGBP(priceNum)}</span>
+  `;
+}
 
     card.innerHTML = `
       <img src="${product.main_image}" alt="${product.title}">
@@ -440,6 +443,7 @@ closeSizeGuide.addEventListener("click", () => {
 sizeGuideModal.addEventListener("click", (e) => {
   if (e.target === sizeGuideModal) sizeGuideModal.style.display = "none";
 });
+
 
 
 
