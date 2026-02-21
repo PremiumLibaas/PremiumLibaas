@@ -686,6 +686,54 @@ footer {
   font-size: 0.9em;
   opacity: 0.9;
 }
+
+/* ===== BUYER DETAILS (PRE-MADE MESSAGE) ===== */
+.buyer-section{
+  margin: 14px 0 18px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(202,168,92,0.18);
+  background: rgba(0,0,0,0.12);
+}
+
+.buyer-section h4{
+  margin-bottom: 10px;
+  color: #caa85c;
+}
+
+.buyer-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px){
+  .buyer-grid{ grid-template-columns: 1fr; }
+}
+
+.buyer-input, .buyer-textarea{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(202,168,92,0.25);
+  background: rgba(0,0,0,0.18);
+  color: #fff;
+  outline: none;
+}
+
+.buyer-input::placeholder, .buyer-textarea::placeholder{ opacity: 0.7; }
+
+.copy-toast{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(212,184,106,0.18);
+  border: 1px solid rgba(212,184,106,0.35);
+  color: #d4b86a;
+  font-weight: 700;
+  text-align: center;
+}
   
 </style>
 </head>
@@ -740,6 +788,22 @@ footer {
 
   <div id="sizesContainer"></div>
 
+<!-- ✅ CUSTOMER DETAILS -->
+<div class="buyer-section">
+  <h4>Customer Details</h4>
+
+  <div class="buyer-grid">
+    <input id="buyerName" class="buyer-input" type="text" placeholder="Full name">
+    <input id="buyerPhone" class="buyer-input" type="tel" placeholder="Phone number">
+    <input id="buyerEmail" class="buyer-input" type="email" placeholder="Email (optional)">
+    <input id="orderQty" class="buyer-input" type="number" min="1" value="1" placeholder="Quantity">
+  </div>
+
+  <textarea id="buyerAddress" class="buyer-textarea" rows="3" placeholder="Delivery address"></textarea>
+
+  <div id="copyToast" class="copy-toast" style="display:none;">✅ Message copied</div>
+</div>
+  
   <!-- ✅ REQUEST A SIZE -->
   <button id="requestSizeBtn" class="request-size-btn" type="button">
     Request a size
@@ -785,6 +849,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
