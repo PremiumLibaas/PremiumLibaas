@@ -17,7 +17,7 @@ const BUY_LINKS = {
   instagram: "https://instagram.com/premium_libaas",
   tiktok: "https://www.tiktok.com/@premium_libaas",
   facebook: "https://www.facebook.com/profile.php?id=61585372481020",
-  whatsapp: "https://wa.me/447761201392"
+  whatsapp: "https://wa.me/447442540408"
 };
 
 function formatGBP(value) {
@@ -533,6 +533,7 @@ requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
 });
+
 
 
 
