@@ -244,12 +244,12 @@ let currentImages = [];
 let currentIndex = 0;
 let currentProduct = null;
 let selectedSizes = new Set();   // in-stock selected sizes
+let requestedSizes = new Set();   // requested sizes
 // requestedSizes already exists in your code
 /* =========================
    REQUEST SIZE LOGIC
 ========================= */
 
-let requestedSizes = new Set();
 
 function renderRequestSizes() {
   requestSizesContainer.innerHTML = "";
@@ -325,24 +325,21 @@ if (sizes && sizes.length > 0) {
     </div>
   `;
 
-   /* SIZE SELECTOR LOGIC */
-let selectedSize = null;
+
 
 /* MULTI SIZE SELECTOR */
-let selectedSizes = new Set();
 
 sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   pill.addEventListener("click", () => {
+    const val = pill.innerText.trim();
 
-    // toggle selection
     if (pill.classList.contains("selected")) {
       pill.classList.remove("selected");
-      selectedSizes.delete(pill.innerText);
+      selectedSizes.delete(val);
     } else {
       pill.classList.add("selected");
-      selectedSizes.add(pill.innerText);
+      selectedSizes.add(val);
     }
-
   });
 });
 
@@ -540,7 +537,118 @@ requestDoneBtn.addEventListener("click", (e) => {
   requestSizesBox.style.display = "none";
 });
 
+function getBuyerInfo() {
+  const name = document.getElementById("buyerName")?.value?.trim() || "";
+  const phone = document.getElementById("buyerPhone")?.value?.trim() || "";
+  const email = document.getElementById("buyerEmail")?.value?.trim() || "";
+  const address = document.getElementById("buyerAddress")?.value?.trim() || "";
+  const qtyRaw = document.getElementById("orderQty")?.value;
+  const qty = Math.max(1, Number(qtyRaw || 1));
+  return { name, phone, email, address, qty };
+}
 
+function buildOrderMessage(platformName = "") {
+  const { name, phone, email, address, qty } = getBuyerInfo();
+
+  const selected = [...selectedSizes];
+  const requested = [...requestedSizes];
+
+  const productName = currentProduct?.title || "";
+  const productId = currentProduct?.id ?? "";
+  const subtitle = currentProduct?.subtitle || "";
+
+  return [
+    "Assalamu alaikum,",
+    "",
+    `I'd like to place an order via ${platformName || "your store"}.`,
+    "",
+    `Product: ${productName}${subtitle ? ` (${subtitle})` : ""}`,
+    `Product ID: ${productId}`,
+    `Quantity: ${qty}`,
+    `Selected size(s): ${selected.length ? selected.join(", ") : "None selected"}`,
+    `Requested size(s): ${requested.length ? requested.join(", ") : "None"}`,
+    "",
+    "Customer details:",
+    `Name: ${name || "—"}`,
+    `Phone: ${phone || "—"}`,
+    `Email: ${email || "—"}`,
+    `Address: ${address || "—"}`,
+    "",
+    "JazakAllah khair."
+  ].join("\n");
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    return true;
+  }
+}
+
+function showCopyToast() {
+  const toast = document.getElementById("copyToast");
+  if (!toast) return;
+  toast.style.display = "block";
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => {
+    toast.style.display = "none";
+  }, 1500);
+}
+
+
+function openWithCopiedMessage(platformName, url) {
+  return async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!currentProduct) return;
+
+    const msg = buildOrderMessage(platformName);
+    await copyText(msg);
+    showCopyToast();
+
+    window.open(url, "_blank");
+  };
+}
+
+// Instagram / TikTok / Facebook: copy then open
+document.querySelector(".instagram")?.addEventListener(
+  "click",
+  openWithCopiedMessage("Instagram", BUY_LINKS.instagram)
+);
+
+document.querySelector(".tiktok")?.addEventListener(
+  "click",
+  openWithCopiedMessage("TikTok", BUY_LINKS.tiktok)
+);
+
+document.querySelector(".facebook")?.addEventListener(
+  "click",
+  openWithCopiedMessage("Facebook", BUY_LINKS.facebook)
+);
+
+// WhatsApp: open with prefilled message + also copies
+document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (!currentProduct) return;
+
+  const msg = buildOrderMessage("WhatsApp");
+  await copyText(msg);
+  showCopyToast();
+
+  const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, "_blank");
+});
 
 
 
