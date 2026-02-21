@@ -16,7 +16,7 @@ const supabase = createClient(
 const BUY_LINKS = {
   instagram: "https://instagram.com/premium_libaas",
   tiktok: "https://www.tiktok.com/@premium_libaas",
-  facebook: "https://www.facebook.com/profile.php?id=61585372481020"
+  facebook: "https://www.facebook.com/profile.php?id=61585372481020",
   whatsapp: "https://wa.me/447761201392"
 };
 
@@ -288,7 +288,7 @@ grid.addEventListener("click", async e => {
   const card = e.target.closest(".card");
   if (!card) return;
 
-  const product = products.find(p => p.id === card.dataset.id);
+  const product = products.find(p => String(p.id) === card.dataset.id);
   if (!product) return;
 
   currentImages = [product.main_image, ...(product.extra_images || [])];
@@ -533,6 +533,7 @@ requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
 });
+
 
 
 
