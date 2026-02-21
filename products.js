@@ -355,6 +355,7 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   requestSelectedText.textContent = "";
   renderRequestSizes();
   modal.style.display = "flex";
+  document.body.classList.add("modal-open");
 });
 
 /* =========================
@@ -385,12 +386,14 @@ nextArrow.onclick = (e) => {
 
 window.closeModal = function () {
   modal.style.display = "none";
+  document.body.classList.remove("modal-open");
 };
 
 /* CLOSE WHEN CLICKING OUTSIDE */
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
+    document.body.classList.remove("modal-open");
   }
 });
 
@@ -528,6 +531,7 @@ requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
 });
+
 
 
 
