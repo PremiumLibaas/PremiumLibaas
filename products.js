@@ -17,6 +17,7 @@ const BUY_LINKS = {
   instagram: "https://instagram.com/premium_libaas",
   tiktok: "https://www.tiktok.com/@premium_libaas",
   facebook: "https://www.facebook.com/profile.php?id=61585372481020"
+  whatsapp: "https://wa.me/447761201392"
 };
 
 function formatGBP(value) {
@@ -345,6 +346,7 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   document.querySelector(".instagram").setAttribute("href", BUY_LINKS.instagram);
   document.querySelector(".tiktok").setAttribute("href", BUY_LINKS.tiktok);
   document.querySelector(".facebook").setAttribute("href", BUY_LINKS.facebook);
+  document.querySelector(".whatsapp").setAttribute("href", BUY_LINKS.whatsapp);
 
   // Show/hide arrows depending on image count
   prevArrow.style.display = currentImages.length > 1 ? "block" : "none";
@@ -531,6 +533,7 @@ requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
 });
+
 
 
 
