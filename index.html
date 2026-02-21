@@ -572,6 +572,34 @@ footer {
   text-decoration: line-through;
   cursor: not-allowed;
 }
+
+/* ===== MOBILE HEADER FIX ===== */
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 18px;
+  }
+
+  .logo img {
+    height: 70px;
+    transform: none;
+  }
+
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  nav a {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+}
+  
 </style>
 </head>
 
@@ -650,6 +678,7 @@ footer {
 </body>
 
 </html>
+
 
 
 
