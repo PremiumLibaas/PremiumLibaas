@@ -62,6 +62,7 @@ const requestDoneBtn = document.getElementById("requestDoneBtn");
 const requestSelectedText = document.getElementById("requestSelectedText");
 const sizeQtySection = document.getElementById("sizeQtySection");
 const sizeQtyList = document.getElementById("sizeQtyList");
+const slider = document.getElementById("modalSlider");
 /* =========================
    LOAD PRODUCTS
 ========================= */
@@ -354,9 +355,7 @@ grid.addEventListener("click", async e => {
   selectedSizes = new Map();
   renderSizeQtyUI();
   requestedSizes = new Set();
-  // ✅ optional: reset quantity each time modal opens
-  const qtyEl = document.getElementById("orderQty");
-  if (qtyEl) qtyEl.value = 1;
+  
 
   currentImages = [product.main_image, ...(product.extra_images || [])];
   currentIndex = 0;
@@ -486,7 +485,6 @@ document.addEventListener("click", (e) => {
 
 let startX = 0;
 
-const slider = document.getElementById("modalSlider");
 
 function loadImages(images) {
   slider.innerHTML = "";
@@ -604,9 +602,7 @@ function getBuyerInfo() {
   const phone = document.getElementById("buyerPhone")?.value?.trim() || "";
   const email = document.getElementById("buyerEmail")?.value?.trim() || "";
   const address = document.getElementById("buyerAddress")?.value?.trim() || "";
-  const qtyRaw = document.getElementById("orderQty")?.value;
-  const qty = Math.max(1, Number(qtyRaw || 1));
-  return { name, phone, email, address, qty };
+  return { name, phone, email, address };
 }
 
 function buildOrderMessage(platformName = "") {
@@ -713,6 +709,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
