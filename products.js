@@ -14,9 +14,9 @@ const supabase = createClient(
 ========================= */
 
 const BUY_LINKS = {
-  instagram: "https://instagram.com/premium_libaas",
+  instagram: "https://ig.me/m/premium_libaas",
   tiktok: "https://www.tiktok.com/@premium_libaas",
-  facebook: "https://www.facebook.com/profile.php?id=61585372481020",
+  facebook: "https://m.me/61585372481020",
   whatsapp: "https://wa.me/447442540408"
 };
 
@@ -420,6 +420,8 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   requestSizesBox.style.display = "none";
   requestSelectedText.textContent = "";
   renderRequestSizes();
+  const hint = document.getElementById("pasteHint");
+  if (hint) hint.style.display = "none";
   modal.style.display = "flex";
   document.body.classList.add("modal-open");
 });
@@ -657,6 +659,10 @@ function showCopyToast() {
   const toast = document.getElementById("copyToast");
   if (!toast) return;
   toast.style.display = "block";
+
+  const hint = document.getElementById("pasteHint");
+  if (hint) hint.style.display = "block";   //
+   
   clearTimeout(window.__toastTimer);
   window.__toastTimer = setTimeout(() => {
     toast.style.display = "none";
@@ -709,6 +715,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
