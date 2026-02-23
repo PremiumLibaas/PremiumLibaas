@@ -282,11 +282,19 @@ function renderRequestSizes() {
   updateRequestedText();
 }
 
-function updateRequestedText() {
+function updateRequestedText(mode = "selecting") {
   const arr = [...requestedSizes];
-  requestSelectedText.textContent = arr.length
-    ? `✓ Sizes added — tap a platform below to send`
-    : "Select sizes then press Done";
+
+  if (arr.length === 0) {
+    requestSelectedText.textContent = "";
+    return;
+  }
+
+  if (mode === "done") {
+    requestSelectedText.textContent = "✓ Sizes added — tap a platform below to send";
+  } else {
+    requestSelectedText.textContent = `Selected: ${arr.join(", ")}`;
+  }
 }
 
 function setSizeQty(sizeName, qty) {
@@ -354,7 +362,7 @@ grid.addEventListener("click", async e => {
   currentProduct = product;
   selectedSizes = new Map();
   renderSizeQtyUI();
-  requestedSizes = new Set();
+  
   
 
   currentImages = [product.main_image, ...(product.extra_images || [])];
@@ -433,7 +441,9 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
 ========================= */
 
 prevArrow.onclick = (e) => {
-  e.stopPropagation(); // prevents modal click interference
+  if (!slider || slider.children.length === 0) return;
+
+  e.stopPropagation();
   const total = slider.children.length;
   if (total <= 1) return;
 
@@ -442,6 +452,8 @@ prevArrow.onclick = (e) => {
 };
 
 nextArrow.onclick = (e) => {
+  if (!slider || slider.children.length === 0) return;
+
   e.stopPropagation();
   const total = slider.children.length;
   if (total <= 1) return;
@@ -602,7 +614,7 @@ requestClearBtn.addEventListener("click", (e) => {
 requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
-
+  updateRequestedText("done");
   const hint = document.getElementById("requestSendHint");
   if (!hint) return;
 
@@ -728,6 +740,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
