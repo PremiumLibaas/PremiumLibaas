@@ -422,6 +422,8 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   renderRequestSizes();
   const hint = document.getElementById("pasteHint");
   if (hint) hint.style.display = "none";
+  const hint = document.getElementById("requestSendHint");
+  if (hint) hint.style.display = "none";
   modal.style.display = "flex";
   document.body.classList.add("modal-open");
 });
@@ -592,11 +594,19 @@ requestClearBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestedSizes.clear();
   renderRequestSizes();
+
+  const hint = document.getElementById("requestSendHint");
+  hint.style.display = "none";
 });
 
 requestDoneBtn.addEventListener("click", (e) => {
   e.preventDefault();
   requestSizesBox.style.display = "none";
+
+  const hint = document.getElementById("requestSendHint");
+  if (requestedSizes.size > 0) {
+    hint.style.display = "block";
+  }
 });
 
 function getBuyerInfo() {
@@ -715,6 +725,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
