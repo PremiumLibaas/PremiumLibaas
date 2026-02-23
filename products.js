@@ -292,7 +292,7 @@ function updateRequestedText(mode = "selecting") {
   }
 
   if (mode === "done") {
-    requestSelectedText.textContent = "✓ Sizes added — tap a platform below to send";
+    requestSelectedText.textContent = "✓ Size request added — please enter your details below and choose a platform to send your request";
   } else {
     requestSelectedText.textContent = `Selected: ${arr.join(", ")}`;
   }
@@ -744,6 +744,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
