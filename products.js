@@ -362,6 +362,7 @@ grid.addEventListener("click", async e => {
 
   currentProduct = product;
   selectedSizes = new Map();
+  requestedSizes = new Set();
   renderSizeQtyUI();
   
   
@@ -744,6 +745,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
