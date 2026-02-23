@@ -285,8 +285,8 @@ function renderRequestSizes() {
 function updateRequestedText() {
   const arr = [...requestedSizes];
   requestSelectedText.textContent = arr.length
-    ? `Selected: ${arr.join(", ")}`
-    : "Selected: none";
+    ? `✓ Sizes added — tap a platform below to send`
+    : "Select sizes then press Done";
 }
 
 function setSizeQty(sizeName, qty) {
@@ -715,6 +715,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
