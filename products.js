@@ -420,10 +420,10 @@ sizesBox.querySelectorAll(".size-pill:not(.out)").forEach(pill => {
   requestSizesBox.style.display = "none";
   requestSelectedText.textContent = "";
   renderRequestSizes();
-  const hint = document.getElementById("pasteHint");
-  if (hint) hint.style.display = "none";
-  const hint = document.getElementById("requestSendHint");
-  if (hint) hint.style.display = "none";
+  const pasteHint = document.getElementById("pasteHint");
+  if (pasteHint) pasteHint.style.display = "none";
+  const requestHint = document.getElementById("requestSendHint");
+  if (requestHint) requestHint.style.display = "none";
   modal.style.display = "flex";
   document.body.classList.add("modal-open");
 });
@@ -596,7 +596,7 @@ requestClearBtn.addEventListener("click", (e) => {
   renderRequestSizes();
 
   const hint = document.getElementById("requestSendHint");
-  hint.style.display = "none";
+  if (hint) hint.style.display = "none";
 });
 
 requestDoneBtn.addEventListener("click", (e) => {
@@ -604,11 +604,14 @@ requestDoneBtn.addEventListener("click", (e) => {
   requestSizesBox.style.display = "none";
 
   const hint = document.getElementById("requestSendHint");
+  if (!hint) return;
+
   if (requestedSizes.size > 0) {
     hint.style.display = "block";
+  } else {
+    hint.style.display = "none";
   }
 });
-
 function getBuyerInfo() {
   const name = document.getElementById("buyerName")?.value?.trim() || "";
   const phone = document.getElementById("buyerPhone")?.value?.trim() || "";
@@ -725,6 +728,7 @@ document.querySelector(".whatsapp")?.addEventListener("click", async (e) => {
   const waUrl = `${BUY_LINKS.whatsapp}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, "_blank");
 });
+
 
 
 
